@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postgraduate English | 考研英语</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f7f8fa;
+            color: #2d3748;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* 页面标题 */
+        .page-title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 50px;
+            color: #1a202c;
+            text-align: center;
+        }
+
+        /* 卡片容器 */
+        .card-container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        /* 模块卡片 */
+        .card {
+            flex: 1;
+            min-width: 280px;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 卡片图标 */
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #3182ce;
+        }
+
+        /* 卡片标题 */
+        .card-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1a202c;
+        }
+
+        /* 卡片描述 */
+        .card-desc {
+            font-size: 15px;
+            color: #718096;
+            line-height: 1.6;
+        }
+
+        /* 返回按钮 */
+        .back-btn {
+            margin-top: 60px;
+            padding: 12px 30px;
+            border-radius: 8px;
+            background-color: #3182ce;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: #2b6cb0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="page-title">Postgraduate English<br>考研英语学习中心</h1>
+
+    <div class="card-container">
+        <!-- 考研英语真题 -->
+        <a class="card" href="https://pastpapers.cn/kaoyan">
+            <div class="card-icon">📄</div>
+            <h3 class="card-title">Real Exam Papers</h3>
+            <p class="card-desc">历年考研英语真题 | 完整试卷 | 答案解析</p>
+        </a>
+
+        <!-- 考研英语单词表 -->
+        <a class="card" href="pg-words.html">
+            <div class="card-icon">📘</div>
+            <h3 class="card-title">Vocabulary List</h3>
+            <p class="card-desc">考研核心词汇 | 高频词 | 速记表</p>
+        </a>
+    </div>
+
+    <!-- 返回上一页 -->
+    <button class="back-btn" onclick="history.back()">← Back</button>
+</body>
+</html>
