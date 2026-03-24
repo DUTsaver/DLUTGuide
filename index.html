@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>大连理工大学自救指南</title>
+
+    <style>
+        /* =================================================================
+           1. 全局设置
+        ================================================================= */
+        :root {
+            --primary-color: #004098;
+            --accent-color: #0056D2;
+            --header-height: 100px;
+            --text-dark: #1f1f1f;
+            --bg-light: #f4f6f9;
+            --footer-bg: #0b1e33;
+            --page-padding: 60px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+            color: var(--text-dark);
+            background: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 100%;
+            padding: 0 var(--page-padding);
+            position: relative;
+        }
+
+        /* =================================================================
+           ✅ 动画核心
+        ================================================================= */
+        @keyframes floatInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            will-change: opacity, transform;
+        }
+
+        .reveal.active {
+            animation: floatInLeft 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .delay-100 {
+            animation-delay: 0.3s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.6s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.9s;
+        }
+
+        .delay-400 {
+            animation-delay: 1.2s;
+        }
+
+        .delay-500 {
+            animation-delay: 1.5s;
+        }
+
+        /* =================================================================
+           2. Header
+        ================================================================= */
+        /* 找到 .site-header 修改为以下内容 */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            z-index: 1000;
+
+            /* --- 修改开始 --- */
+
+            /* 1. 设置从上(黑)到下(透明)的线性渐变 */
+            /* rgba(0,0,0, 0.9) 代表顶部黑色浓度90%，防止文字看不清 */
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+
+            /* 2. 去掉磨砂模糊效果，让渐变更干净 */
+            backdrop-filter: none;
+
+            /* 3. 去掉底部的白线，否则渐变到透明后会留下一条尴尬的线 */
+            border-bottom: none;
+
+            /* --- 修改结束 --- */
+
+            display: flex;
+            align-items: center;
+        }
+
+        .site-header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            height: 72px;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+        }
+
+        /* 添加在 .logo 相关样式的下面 */
+
+        .logo-text {
+            color: #fff;
+            /* 设置为白色，适配黑色渐变背景 */
+            font-size: 20px;
+            /* 字体大小，可根据喜好微调 */
+            font-weight: 600;
+            /* 稍微加粗 */
+            margin-left: 15px;
+            /* 让文字和左边的校徽图片保持距离 */
+            letter-spacing: 0.5px;
+            /* 字母间距稍微宽一点，显得大气 */
+            white-space: nowrap;
+            /* 强制不换行 */
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            /* 英文常用字体 */
+
+            /* 可选：为了防止背景太亮看不清，加一点点阴影 */
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 65px;
+        }
+
+        .nav-link {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 500;
+            position: relative;
+            padding: 10px 0;
+            opacity: 0.95;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        .has-dropdown {
+            position: relative;
+            padding-right: 20px;
+        }
+
+        .caret {
+            font-size: 12px;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s;
+            opacity: 0.8;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            min-width: 200px;
+            background: #fff;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 12px 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .has-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 14px 28px;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .dropdown-menu a:hover {
+            background: #f0f4ff;
+            color: var(--primary-color);
+        }
+
+        .tools {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-left: 40px;
+        }
+
+        .search-btn {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .icon-svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+        }
+
+        /* =================================================================
+           3. Hero (轮播版)
+        ================================================================= */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 160px;
+            overflow: hidden;
+            background-color: #000;
+            /* 底色 */
+        }
+
+        /* 轮播图片容器 */
+        .hero-slider {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            /* 1秒淡入淡出 */
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        /* 渐变遮罩层 - 确保文字清晰 */
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0, 21, 51, 0.85) 0%, rgba(0, 25, 60, 0.3) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            color: #fff;
+        }
+
+        .hero-title {
+            font-size: 92px;
+            font-weight: 700;
+            line-height: 1.05;
+            margin-bottom: 30px;
+            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-desc {
+            font-size: 26px;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 60px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--accent-color);
+            color: #fff;
+            padding: 20px 48px;
+            font-size: 20px;
+            font-weight: 700;
+            border-radius: 4px;
+            box-shadow: 0 8px 25px rgba(0, 86, 210, 0.5);
+        }
+
+        /* 轮播控制按钮 (参考交大风格) */
+        .slider-controls {
+            position: absolute;
+            right: var(--page-padding);
+            bottom: 50px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .control-btn {
+            width: 54px;
+            height: 54px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            background: transparent;
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: #fff;
+            transform: scale(1.05);
+        }
+
+        .slider-dots {
+            display: flex;
+            gap: 12px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #ff4500;
+            /* 交大橙红风格 */
+            transform: scale(1.3);
+        }
+
+        /* =================================================================
+           4. Programs & Footer (保持大气版)
+        ================================================================= */
+        .section {
+            padding: 120px 0;
+            background: var(--bg-light);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 60px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid #e0e6ed;
+        }
+
+        .section-title {
+            font-size: 48px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+        }
+
+        .program-card {
+            display: block;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            background: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .program-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        /* 找到 .card-overlay 修改为以下内容 */
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            /* 1. 去掉原本的蓝紫色渐变背景，改为透明 */
+            background: transparent;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+
+            /* 2. 减小内边距，让文字更靠左下角 (原为 40px) */
+            padding: 20px;
+
+            color: #fff;
+            /* 为了防止背景图太亮看不清白字，建议加重一点文字阴影 */
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+        }
+
+        .card-icon-area {
+            position: absolute;
+            top: 15px;
+            /* 稍微调整一下图标位置适配新布局 */
+            right: 15px;
+            width: 48px;
+            /* 稍微缩小一点图标区域 */
+            height: 48px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        /* 找到 .program-name 修改为以下内容 */
+        .program-name {
+            /* 3. 字体缩小 (原为 32px) */
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+
+            /* 4. 下划线改为细的灰色 (原为 4px solid var(--accent-color)) */
+            border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+
+            display: inline-block;
+            padding-bottom: 6px;
+        }
+
+        /* 顺便调整一下描述文字的大小，使其比例协调 */
+        .program-desc {
+            font-size: 14px;
+            /* 原为 18px */
+            opacity: 0.95;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .site-footer {
+            background: var(--footer-bg);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 100px 0 50px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 120px;
+            margin-bottom: 80px;
+        }
+
+        .footer-col h4 {
+            color: #fff;
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="Index-Pictures/校徽.png" alt="DUT Logo">
+                <span class="logo-text">Dalian University of Technology</span>
+            </a>
+
+            <div class="main-nav">
+                <nav style="display: flex; gap: 65px;">
+                    <div class="nav-link has-dropdown">
+                        数学复习资料 <span class="caret">▼</span>
+                        <div class="dropdown-menu">
+                            <a href="#">数学分析</a>
+                            <a href="#">高等代数</a>
+                            <a href="#">复变函数</a>
+                        </div>
+                    </div>
+                    <a href="#" class="nav-link">大连理工大学自救指南</a>
+                    <a href="#" class="nav-link">物理实验指导</a>
+                    <a href="#" class="nav-link">化学公式大全</a>
+                    <a href="#" class="nav-link">历史时间线</a>
+                    <a href="#" class="nav-link">政治要点总结</a>
+                </nav>
+                <div class="tools">
+                    <button class="search-btn"><svg class="icon-svg" viewBox="0 0 24 24">
+                            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-slider">
+            <div class="slide active" style="background-image: url('Index-Pictures/DUT-bg.jpg');"></div>
+            <div class="slide" style="background-image: url('Index-Pictures/DUT-bg2.jpg');"></div>
+            <div class="slide" style="background-image: url('Index-Pictures/DUT-bg3.jpg');"></div>
+        </div>
+
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">大连理工大学自救指南</h1>
+                <p class="hero-desc">面对江河日下的培养模式大工学生该怎么做？</p>
+                <a href="#programs" class="hero-btn">SAVE YOURSELF!!! <span>→</span></a>
+            </div>
+        </div>
+
+        <div class="slider-controls">
+            <button class="control-btn prev-btn">←</button>
+            <div class="slider-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <button class="control-btn next-btn">→</button>
+        </div>
+    </section>
+
+    <section class="section" id="programs">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">精选板块</h2>
+            </div>
+
+            <div class="programs-grid">
+                <a href="math.html" class="program-card reveal">
+                    <img src="Index-Pictures/Part-1.jpg" alt="数学复习">
+                    <div class="card-icon-area">📐</div>
+                    <div class="card-overlay">
+                        <h3 class="program-name">数学复习资料</h3>
+                        <p class="program-desc">高等数学重点公式、典型例题解析、历年真题汇总。</p>
+                    </div>
+                </a>
+
+                <a href="自救指南/SaverGuidance.html" class="program-card reveal delay-100">
+                    <img src="Index-Pictures/Part-2.jpg" alt="自救指南">
+                    <div class="card-icon-area">🆘</div>
+                    <div class="card-overlay">
+                        <h3 class="program-name">大连理工大学自救指南</h3>
+                        <p class="program-desc">《大连理工大学自救指南》正文，涵盖选课、生活、避坑指南。</p>
+                    </div>
+                </a>
+
+                <a href="#" class="program-card reveal delay-200">
+                    <img src="Index-Pictures/Part-3.jpg" alt="物理实验">
+                    <div class="card-icon-area">⚗️</div>
+                    <div class="card-overlay">
+                        <h3 class="program-name">物理实验指导</h3>
+                        <p class="program-desc">实验报告模板、数据处理方法、常见误差分析与操作演示。</p>
+                    </div>
+                </a>
+
+                <a href="#" class="program-card reveal delay-300">
+                    <img src="Index-Pictures/Part-4.jpg" alt="化学公式">
+                    <div class="card-icon-area">🧪</div>
+                    <div class="card-overlay">
+                        <h3 class="program-name">化学公式大全</h3>
+                        <p class="program-desc">重要化学反应方程式、元素周期表、实验现象总结。</p>
+                    </div>
+                </a>
+
+                <a href="#" class="program-card reveal delay-400">
+                    <img src="Index-Pictures/Part-5.jpg" alt="历史时间线">
+                    <div class="card-icon-area">🗓️</div>
+                    <div class="card-overlay">
+                        <h3 class="program-name">历史时间线</h3>
+                        <p class="program-desc">中外历史大事年表、重要人物、历史事件对比与解析。</p>
+                    </div>
+                </a>
+
+                <a href="#" class="program-card reveal delay-500">
+                    <img src="Index-Pictures/Part-6.jpg" alt="政治要点">
+                    <div class="card-icon-area">🏛️</div>
+                    <div class="card-overlay">
+                        <h3 class="program-name">政治要点总结</h3>
+                        <p class="program-desc">马克思主义基本原理、时事政治热点、考研政治答题技巧。</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col reveal">
+                    <h4>联系我们</h4>
+                    <p>地址：中国辽宁省大连市甘井子区凌工路2号</p>
+                    <p>邮编：116024</p>
+                    <p>Email: 大连理工是全世界最好的学校@dlut.edu.cn</p>
+                </div>
+                <div class="footer-col reveal delay-100">
+                    <h4>快速链接</h4>
+                    <p>图书馆</p>
+                    <p>教务处</p>
+                    <p>校园地图</p>
+                </div>
+                <div class="footer-col reveal delay-200">
+                    <h4>关注大工</h4>
+                    <p>微信公众号</p>
+                    <p>微博</p>
+                </div>
+            </div>
+            <div class="footer-bottom reveal delay-300">
+                <div>&copy; 2026 Dalian University of Technology. All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 1. 内容滚动进场动画
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        el.classList.add('active');
+                        el.addEventListener('animationend', () => {
+                            el.style.opacity = '1';
+                            el.style.transform = 'none';
+                            el.classList.remove('reveal', 'active');
+                        }, { once: true });
+                        observer.unobserve(el);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // 2. 轮播图核心逻辑
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+
+            let currentIndex = 0;
+            let slideInterval;
+
+            function showSlide(index) {
+                slides[currentIndex].classList.remove('active');
+                dots[currentIndex].classList.remove('active');
+                currentIndex = (index + slides.length) % slides.length;
+                slides[currentIndex].classList.add('active');
+                dots[currentIndex].classList.add('active');
+            }
+
+            function startTimer() {
+                clearInterval(slideInterval);
+                slideInterval = setInterval(() => showSlide(currentIndex + 1), 10000); // 10秒
+            }
+
+            nextBtn.addEventListener('click', () => { showSlide(currentIndex + 1); startTimer(); });
+            prevBtn.addEventListener('click', () => { showSlide(currentIndex - 1); startTimer(); });
+
+            dots.forEach((dot, i) => {
+                dot.addEventListener('click', () => { showSlide(i); startTimer(); });
+            });
+
+            startTimer(); // 启动自动轮播
+        });
+    </script>
+</body>
+
+</html>

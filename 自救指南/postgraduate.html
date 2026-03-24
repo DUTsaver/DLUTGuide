@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研究生学习 - 大连理工大学自救手册</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; font-family: "Microsoft Yahei", sans-serif; }
+        
+        /* 左侧导航栏样式（与首页一致） */
+        .sidebar {
+            width: 220px;
+            background: #f8f9fa;
+            padding: 20px 10px;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #e9ecef;
+        }
+        .sidebar .search-box {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .sidebar ul { list-style: none; }
+        .sidebar .nav-item { margin: 5px 0; }
+        .sidebar .nav-link {
+            display: block;
+            padding: 10px 15px;
+            color: #343a40;
+            text-decoration: none;
+            font-size: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .sidebar .nav-link:hover { background: #e9ecef; }
+        .sidebar .nav-link.active {
+            background: #007bff;
+            color: white;
+        }
+        .sidebar .submenu {
+            margin-left: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .sidebar .submenu.show { max-height: 500px; }
+        .sidebar .submenu .nav-link {
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #495057;
+        }
+        
+        /* 右侧内容区样式（与首页一致） */
+        .content {
+            flex: 1;
+            padding: 30px 50px;
+            overflow-y: auto;
+            height: 100vh;
+            background: #ffffff;
+        }
+        .content h1 { margin-bottom: 20px; color: #212529; }
+        .content h2 { margin: 20px 0 10px; color: #343a40; }
+        .content p { line-height: 1.8; color: #495057; margin-bottom: 15px; }
+        .content ul { margin: 10px 0 20px 20px; }
+        .content li { line-height: 1.7; color: #495057; margin-bottom: 8px; }
+        .content a { color: #007bff; text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <!-- 左侧导航栏（与首页一致） -->
+    <div class="sidebar">
+        <input type="text" class="search-box" placeholder="搜索手册内容...">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="SaverGuidance.html" class="nav-link">首页</a>
+            </li>
+            <li class="nav-item">
+                <a href="quick-nav.html" class="nav-link">快速导航</a>
+            </li>
+            <li class="nav-item">
+                <div class="nav-link" onclick="toggleSubmenu(this)">学校简介</div>
+                <ul class="submenu">
+                    <li><a href="organization.html" class="nav-link">组织机构</a></li>
+                    <li><a href="websites.html" class="nav-link">常用网站</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="freshman.html" class="nav-link">新生指南</a>
+            </li>
+            <li class="nav-item">
+                <a href="info-service.html" class="nav-link">信息服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="life-service.html" class="nav-link">生活服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="undergraduate.html" class="nav-link">本科生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="postgraduate.html" class="nav-link active">研究生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="campus-culture.html" class="nav-link">校园文化</a>
+            </li>
+            <li class="nav-item">
+                <a href="personal-growth.html" class="nav-link">个人成长</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 右侧研究生学习内容区 -->
+    <div class="content">
+        <h1>研究生学习</h1>
+        <h2 id="course">课程与培养</h2>
+        <ul>
+            <li>课程类型：公共课（英语、政治）、专业基础课、专业课、选修课，需修满培养方案规定学分；</li>
+            <li>选课要求：硕士研究生一般1-2学期完成课程学习，博士研究生以科研为主，课程为辅；</li>
+            <li>培养计划：入学后1个月内制定个人培养计划，经导师、学院审核通过后生效。</li>
+        </ul>
+
+        <h2 id="thesis">毕业论文/设计</h2>
+        <ul>
+            <li>开题报告：硕士入学后第3学期、博士入学后第4学期完成开题，需通过开题答辩；</li>
+            <li>中期考核：硕士第4学期、博士第6学期进行中期考核，检查科研进度，未通过需整改；</li>
+            <li>论文答辩：硕士论文答辩一般在第6学期，博士论文答辩一般在第8-10学期，答辩前需查重；</li>
+            <li>查重要求：硕士论文重复率≤15%，博士论文重复率≤10%，否则需修改后重新查重。</li>
+        </ul>
+
+        <h2 id="research">科研与项目</h2>
+        <ul>
+            <li>导师选择：入学后双向选择导师，确定研究方向，定期向导师汇报科研进展；</li>
+            <li>科研项目：可参与导师的纵向/横向项目，发表论文需符合学校要求（硕士至少1篇核心，博士至少1篇SCI/SSCI）；</li>
+            <li>学术交流：学校定期举办学术讲座、研讨会，鼓励参加国内外学术会议。</li>
+        </ul>
+
+        <h2 id="award">奖学金与补助</h2>
+        <ul>
+            <li>奖学金：国家奖学金（硕士2万/年，博士3万/年）、学业奖学金（全覆盖，分一/二/三等奖）；</li>
+            <li>国家助学金：硕士6000元/年，博士15000元/年，按月发放；</li>
+            <li>助研/助教/助管：可申请“三助”岗位，每月发放补助（500-1000元）。</li>
+        </ul>
+    </div>
+
+    <!-- 交互脚本（与首页一致） -->
+    <script>
+        function toggleSubmenu(element) {
+            const submenu = element.nextElementSibling;
+            submenu.classList.toggle('show');
+            document.querySelectorAll('.submenu.show').forEach(item => {
+                if (item !== submenu) item.classList.remove('show');
+            });
+        }
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.href === window.location.href) {
+                link.classList.add('active');
+                const parentSubmenu = link.closest('.submenu');
+                if (parentSubmenu) parentSubmenu.classList.add('show');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学校简介 - 常用网站</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; font-family: "Microsoft Yahei", sans-serif; }
+        
+        /* 左侧导航栏样式 */
+        .sidebar {
+            width: 220px;
+            background: #f8f9fa;
+            padding: 20px 10px;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #e9ecef;
+        }
+        .sidebar .search-box {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .sidebar ul { list-style: none; }
+        .sidebar .nav-item { margin: 5px 0; }
+        /* 主菜单样式 */
+        .sidebar .nav-link {
+            display: block;
+            padding: 10px 15px;
+            color: #343a40;
+            text-decoration: none;
+            font-size: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .sidebar .nav-link:hover { background: #e9ecef; }
+        .sidebar .nav-link.active {
+            background: #007bff;
+            color: white;
+        }
+        /* 下拉子菜单样式 */
+        .sidebar .submenu {
+            margin-left: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .sidebar .submenu.show { max-height: 500px; }
+        .sidebar .submenu .nav-link {
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #495057;
+        }
+        
+        /* 右侧内容区样式 */
+        .content {
+            flex: 1;
+            padding: 30px 50px;
+            overflow-y: auto;
+            height: 100vh;
+            background: #ffffff;
+        }
+        .content h1 { margin-bottom: 20px; color: #212529; }
+        .content h2 { margin: 20px 0 10px; color: #343a40; }
+        .content p { line-height: 1.8; color: #495057; margin-bottom: 15px; }
+        .content ul { margin: 10px 0 20px 20px; }
+        .content li { line-height: 1.7; color: #495057; margin-bottom: 8px; }
+        .content a { color: #007bff; text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <!-- 与首页完全一致的左侧导航栏 -->
+    <div class="sidebar">
+        <input type="text" class="search-box" placeholder="搜索手册内容...">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="SaverGuidance.html" class="nav-link active">首页</a>
+            </li>
+            <li class="nav-item">
+                <a href="quick-nav.html" class="nav-link">快速导航</a>
+            </li>
+            <!-- 学校简介（带子菜单） -->
+            <li class="nav-item">
+                <div class="nav-link" onclick="toggleSubmenu(this)">学校简介</div>
+                <ul class="submenu show">
+                    <li><a href="organization.html" class="nav-link">组织机构</a></li>
+                    <li><a href="websites.html" class="nav-link active">常用网站</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="freshman.html" class="nav-link">新生指南</a>
+            </li>
+            <li class="nav-item">
+                <a href="info-service.html" class="nav-link">信息服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="life-service.html" class="nav-link">生活服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="undergraduate.html" class="nav-link">本科生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="postgraduate.html" class="nav-link">研究生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="campus-culture.html" class="nav-link">校园文化</a>
+            </li>
+            <li class="nav-item">
+                <a href="personal-growth.html" class="nav-link">个人成长</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 常用网站页面专属内容 -->
+    <div class="content">
+        <h1>常用网站</h1>
+        <h2>学校官方网站</h2>
+        <ul>
+            <li>大连理工大学官网：<a href="https://www.dlut.edu.cn" target="_blank">https://www.dlut.edu.cn</a></li>
+            <li>大连理工大学新闻网：<a href="https://news.dlut.edu.cn" target="_blank">https://news.dlut.edu.cn</a></li>
+        </ul>
+
+        <h2>教学管理类</h2>
+        <ul>
+            <li>教务处（本科生）：<a href="https://jwc.dlut.edu.cn" target="_blank">https://jwc.dlut.edu.cn</a>（选课、成绩、课表查询）</li>
+            <li>研究生院（研究生）：<a href="https://gs.dlut.edu.cn" target="_blank">https://gs.dlut.edu.cn</a>（招生、培养、学位管理）</li>
+            <li>慕课平台/在线学习：<a href="https://www.icourse163.org" target="_blank">中国大学MOOC</a>（校内课程补充）</li>
+        </ul>
+
+        <h2>校园服务类</h2>
+        <ul>
+            <li>大工微门户：<a href="https://i.dlut.edu.cn" target="_blank">https://i.dlut.edu.cn</a>（统一身份认证、校园服务入口）</li>
+            <li>图书馆：<a href="https://lib.dlut.edu.cn" target="_blank">https://lib.dlut.edu.cn</a>（图书借阅、电子资源、自习室预约）</li>
+            <li>后勤服务平台：<a href="https://hqfw.dlut.edu.cn" target="_blank">https://hqfw.dlut.edu.cn</a>（宿舍报修、食堂充值）</li>
+        </ul>
+
+        <h2>其他实用网站</h2>
+        <ul>
+            <li>就业信息网：<a href="https://career.dlut.edu.cn" target="_blank">https://career.dlut.edu.cn</a>（校招、实习、就业指导）</li>
+            <li>校园卡服务：<a href="https://card.dlut.edu.cn" target="_blank">https://card.dlut.edu.cn</a>（校园卡挂失、充值、消费查询）</li>
+        </ul>
+    </div>
+
+    <!-- 与首页完全一致的交互脚本 -->
+    <script>
+        // 切换子菜单展开/收起
+        function toggleSubmenu(element) {
+            const submenu = element.nextElementSibling;
+            submenu.classList.toggle('show');
+            // 自动收起其他展开的子菜单
+            document.querySelectorAll('.submenu.show').forEach(item => {
+                if (item !== submenu) item.classList.remove('show');
+            });
+        }
+
+        // 高亮当前页面的导航项
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.href === window.location.href) {
+                link.classList.add('active');
+                // 子菜单页面自动展开父菜单
+                const parentSubmenu = link.closest('.submenu');
+                if (parentSubmenu) {
+                    parentSubmenu.classList.add('show');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

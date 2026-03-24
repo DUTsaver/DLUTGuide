@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园文化 - 大连理工大学自救手册</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; font-family: "Microsoft Yahei", sans-serif; }
+        
+        /* 左侧导航栏样式（与首页一致） */
+        .sidebar {
+            width: 220px;
+            background: #f8f9fa;
+            padding: 20px 10px;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #e9ecef;
+        }
+        .sidebar .search-box {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .sidebar ul { list-style: none; }
+        .sidebar .nav-item { margin: 5px 0; }
+        .sidebar .nav-link {
+            display: block;
+            padding: 10px 15px;
+            color: #343a40;
+            text-decoration: none;
+            font-size: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .sidebar .nav-link:hover { background: #e9ecef; }
+        .sidebar .nav-link.active {
+            background: #007bff;
+            color: white;
+        }
+        .sidebar .submenu {
+            margin-left: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .sidebar .submenu.show { max-height: 500px; }
+        .sidebar .submenu .nav-link {
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #495057;
+        }
+        
+        /* 右侧内容区样式（与首页一致） */
+        .content {
+            flex: 1;
+            padding: 30px 50px;
+            overflow-y: auto;
+            height: 100vh;
+            background: #ffffff;
+        }
+        .content h1 { margin-bottom: 20px; color: #212529; }
+        .content h2 { margin: 20px 0 10px; color: #343a40; }
+        .content p { line-height: 1.8; color: #495057; margin-bottom: 15px; }
+        .content ul { margin: 10px 0 20px 20px; }
+        .content li { line-height: 1.7; color: #495057; margin-bottom: 8px; }
+        .content a { color: #007bff; text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <!-- 左侧导航栏（与首页一致） -->
+    <div class="sidebar">
+        <input type="text" class="search-box" placeholder="搜索手册内容...">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="SaverGuidance.html" class="nav-link">首页</a>
+            </li>
+            <li class="nav-item">
+                <a href="quick-nav.html" class="nav-link">快速导航</a>
+            </li>
+            <li class="nav-item">
+                <div class="nav-link" onclick="toggleSubmenu(this)">学校简介</div>
+                <ul class="submenu">
+                    <li><a href="organization.html" class="nav-link">组织机构</a></li>
+                    <li><a href="websites.html" class="nav-link">常用网站</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="freshman.html" class="nav-link">新生指南</a>
+            </li>
+            <li class="nav-item">
+                <a href="info-service.html" class="nav-link">信息服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="life-service.html" class="nav-link">生活服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="undergraduate.html" class="nav-link">本科生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="postgraduate.html" class="nav-link">研究生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="campus-culture.html" class="nav-link active">校园文化</a>
+            </li>
+            <li class="nav-item">
+                <a href="personal-growth.html" class="nav-link">个人成长</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 右侧校园文化内容区 -->
+    <div class="content">
+        <h1>校园文化</h1>
+        <h2 id="club">学生社团</h2>
+        <ul>
+            <li>社团类型：学术科技类（数学建模协会、机器人协会）、文艺类（合唱团、话剧团）、体育类（篮球社、羽毛球社）、公益类（青协、支教团）等；</li>
+            <li>招新时间：每年9月“百团大战”，各社团集中招新，可现场报名；</li>
+            <li>校级社团：校学生会、研究生会、广播站、记者团等，需通过面试加入。</li>
+        </ul>
+
+        <h2 id="activity">品牌活动</h2>
+        <ul>
+            <li>校庆活动：每年4月15日校庆日，举办校庆晚会、校友论坛等；</li>
+            <li>嘉年华：每年5月举办校园嘉年华，含文艺表演、趣味游戏、美食市集；</li>
+            <li>体育赛事：校运会（每年10月）、“冠军杯”篮球赛、足球赛等；</li>
+            <li>文化节：科技文化节、人文文化节、国际文化节，每月有不同主题活动。</li>
+        </ul>
+
+        <h2 id="place">文化地标</h2>
+        <ul>
+            <li>伯川图书馆：学校标志性建筑，藏书丰富，是自习、科研的好去处；</li>
+            <li>令希图书馆：工科特色图书馆，配备先进的电子资源和自习设备；</li>
+            <li>腾飞塔：校园地标，象征大工学子“腾飞”的精神，是拍照打卡的热门地点；</li>
+            <li>情人路：凌水河畔的林荫路，是校园内休闲、散步的好去处。</li>
+        </ul>
+
+        <h2 id="tradition">校园传统</h2>
+        <ul>
+            <li>校风：团结、进取、求实、创新；</li>
+            <li>校训：海纳百川、自强不息、厚德笃学、知行合一；</li>
+            <li>毕业季：每年6月举办毕业晚会、毕业照拍摄、校友送别活动；</li>
+            <li>迎新季：每年9月举办迎新晚会、新生开学典礼、校园参观等。</li>
+        </ul>
+    </div>
+
+    <!-- 交互脚本（与首页一致） -->
+    <script>
+        function toggleSubmenu(element) {
+            const submenu = element.nextElementSibling;
+            submenu.classList.toggle('show');
+            document.querySelectorAll('.submenu.show').forEach(item => {
+                if (item !== submenu) item.classList.remove('show');
+            });
+        }
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.href === window.location.href) {
+                link.classList.add('active');
+                const parentSubmenu = link.closest('.submenu');
+                if (parentSubmenu) parentSubmenu.classList.add('show');
+            }
+        });
+    </script>
+</body>
+</html>

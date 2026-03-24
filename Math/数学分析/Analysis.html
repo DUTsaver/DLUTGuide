@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>数学分析 | 期末考试指导</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 引入MathJax并加载AMS扩展包 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                packages: {'[+]': ['ams']}  // 加载AMS扩展包，支持oiint等特殊符号
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary: #006699;
+            --primary-light: #0088cc;
+            --primary-hover: #005580;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f7f9fa;
+            --bg-tertiary: #f0f4f7;
+            --text-primary: #2c3e50;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition: all 0.3s ease-in-out;
+            --watermark-color: #e0e7ee;
+            --timeline-color: var(--primary);
+            --timeline-dot: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.7;
+            padding: 0;
+            width: 100vw;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .pde-watermark {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            padding: 120px 20px 40px;
+            background: transparent;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .watermark-formula {
+            margin-bottom: 30px;
+            color: var(--watermark-color);
+            font-size: 14px;
+            line-height: 1.8;
+            font-weight: 500;
+            opacity: 0.85;
+        }
+
+        .page-wrapper {
+            width: 100vw;
+            margin: 0;
+            padding: 0 0 0 280px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 999;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            font-size: 1em;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: 500;
+            box-shadow: var(--shadow-sm);
+            border: none;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 102, 153, 0.25);
+        }
+
+        .back-btn:active {
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: var(--shadow-md);
+        }
+
+        .container {
+            width: 100%;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 60px 50px 50px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 40px;
+            max-width: none;
+            margin-top: 20px;
+        }
+
+        /* 新增标题容器样式，实现标题和名言的并排布局 */
+        .title-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            color: var(--primary);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-align: left;
+            margin: 0;
+        }
+
+        /* 拉格朗日名言的艺术字体样式 */
+        .lagrange-quote {
+            font-size: 1em;
+            color: #888;
+            font-family: "Georgia", "Times New Roman", serif;
+            font-style: italic;
+            text-align: right;
+            line-height: 1.4;
+            /* 艺术化样式 */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            border-left: 2px solid #eee;
+            padding-left: 20px;
+            margin-left: 20px;
+            max-width: 40%;
+        }
+
+        /* 柯西名言的艺术字体样式 */
+        .cauchy-quote {
+            font-size: 1.2em;
+            color: var(--primary);
+            font-family: "Georgia", "Times New Roman", serif;
+            font-style: italic;
+            text-align: center;
+            line-height: 1.8;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+            margin-top: 60px;
+            padding: 20px;
+            border-top: 2px solid var(--bg-tertiary);
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        .intro {
+            font-size: 1.05em;
+            color: var(--text-primary);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .difficulty {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(220, 0, 0, 0.06);
+            border: 1px solid rgba(220, 0, 0, 0.15);
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            color: #c0392b;
+            margin: 15px 0 35px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            margin: 50px 0 30px;
+            border-left: 5px solid var(--primary);
+            padding-left: 20px;
+            color: var(--primary);
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            width: 100%;
+        }
+
+        .pdf-card {
+            position: relative;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pdf-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+
+        .pdf-cover {
+            width: 100%;
+            height: 320px;
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 2.5em;
+            position: relative;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pdf-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .pdf-cover.no-image::after {
+            content: attr(data-emoji);
+            font-size: 2em;
+            opacity: 0.8;
+        }
+
+        .pdf-name {
+            padding: 20px 15px;
+            text-align: center;
+            font-size: 1.05em;
+            font-weight: 500;
+            color: var(--text-primary);
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.92);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s;
+        }
+
+        .pdf-card.loading .loading {
+            opacity: 1
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--bg-tertiary);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        /* ========== 新增：数学分析发展沿革时间轴样式（含人物图像） ========== */
+        .timeline-section {
+            width: 100%;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            color: var(--text-primary);
+            box-shadow: var(--shadow-md);
+            max-width: none;
+            margin-bottom: 40px;
+        }
+
+        .timeline-title {
+            font-size: 1.8em;
+            margin: 0 0 40px 0;
+            border-left: 5px solid var(--primary);
+            padding-left: 20px;
+            color: var(--primary);
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* 时间轴中心线 */
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--timeline-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+
+        /* 时间轴容器 */
+        .timeline-container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            display: flex;
+            align-items: center;
+        }
+
+        /* 时间轴圆点 */
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: var(--timeline-dot);
+            border: 4px solid var(--timeline-color);
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        /* 左侧容器（文字在左，头像在右） */
+        .left {
+            left: 0;
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+
+        /* 右侧容器（头像在左，文字在右） */
+        .right {
+            left: 50%;
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+
+        /* 左侧容器的箭头 */
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid var(--bg-tertiary);
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent var(--bg-tertiary);
+        }
+
+        /* 右侧容器的箭头 */
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid var(--bg-tertiary);
+            border-width: 10px 10px 10px 0;
+            border-color: transparent var(--bg-tertiary) transparent transparent;
+        }
+
+        /* 调整右侧圆点位置 */
+        .right::after {
+            left: -16px;
+        }
+
+        /* 人物头像容器（轴线对面） */
+        .timeline-img-container {
+            width: 100px;
+            height: 100px;
+            flex-shrink: 0;
+            margin: 0 20px;
+        }
+
+        /* 人物图像样式（放大版） */
+        .timeline-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--bg-primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* 时间轴内容卡片 */
+        .timeline-content {
+            padding: 20px;
+            background-color: var(--bg-tertiary);
+            position: relative;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            max-width: calc(100% - 140px);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
+        }
+
+        /* 时间样式 */
+        .timeline-year {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-family: "Georgia", serif;
+        }
+
+        /* 人物名称样式 */
+        .timeline-person {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        /* 事件描述样式 */
+        .timeline-desc {
+            font-size: 0.95em;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ========== 评论区样式 ========== */
+        #comment-shell {
+            width: 100%;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            color: var(--text-primary);
+            box-shadow: var(--shadow-md);
+            max-width: none;
+        }
+
+        #comment-shell h3 {
+            font-size: 1.6em;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+            text-align: left;
+        }
+
+        .comment-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px
+        }
+
+        .comment-meta input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            outline: none;
+            font-size: 1em;
+            transition: var(--transition);
+        }
+
+        .comment-meta input:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(0, 136, 204, 0.1);
+        }
+
+        #comment-content {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            resize: vertical;
+            outline: none;
+            font-size: 1em;
+            min-height: 120px;
+            transition: var(--transition);
+            margin-bottom: 15px;
+        }
+
+        #comment-content:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(0, 136, 204, 0.1);
+        }
+
+        #comment-submit {
+            padding: 12px 30px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: var(--primary);
+            color: white;
+            font-size: 1.05em;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        #comment-submit:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        #comment-list {
+            margin-top: 40px
+        }
+
+        /* ========== 响应式适配 ========== */
+        @media(max-width: 992px) {
+            .pde-watermark {
+                display: none;
+            }
+            .page-wrapper {
+                padding: 15px 15px 30px;
+            }
+            .container {
+                padding: 50px 40px 40px;
+            }
+            h1 {
+                font-size: 2.4em;
+            }
+            .lagrange-quote {
+                font-size: 0.9em;
+                max-width: 50%;
+            }
+            .section-title {
+                font-size: 1.6em;
+            }
+            .card-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            .pdf-cover {
+                height: 280px;
+            }
+            .back-btn {
+                padding: 10px 20px;
+                font-size: 0.95em;
+            }
+
+            /* 时间轴响应式 */
+            .timeline::after {
+                left: 31px;
+            }
+            .timeline-container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .timeline-img-container {
+                margin: 0 0 15px 0;
+                align-self: center;
+            }
+            .timeline-content {
+                max-width: 100%;
+            }
+            .timeline-container::before {
+                left: 60px;
+                border: medium solid var(--bg-tertiary);
+                border-width: 10px 10px 10px 0;
+                border-color: transparent var(--bg-tertiary) transparent transparent;
+            }
+            .left::after, .right::after {
+                left: 15px;
+            }
+            .left::before {
+                right: auto;
+                left: 60px;
+            }
+            .right {
+                left: 0%;
+            }
+        }
+
+        @media(max-width: 600px) {
+            .container {
+                padding: 45px 25px 25px;
+            }
+            /* 移动端改为上下布局 */
+            .title-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            h1 {
+                font-size: 2em;
+                margin-bottom: 10px;
+            }
+            .lagrange-quote {
+                font-size: 0.85em;
+                max-width: 100%;
+                border-left: none;
+                padding-left: 0;
+                margin-left: 0;
+                text-align: left;
+            }
+            .cauchy-quote {
+                font-size: 1em;
+                margin-top: 40px;
+            }
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            .pdf-cover {
+                height: 240px;
+            }
+            .comment-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .back-btn {
+                padding: 8px 16px;
+                font-size: 0.9em;
+                top: 15px;
+                left: 15px;
+            }
+
+            /* 时间轴移动端适配 */
+            .timeline-section {
+                padding: 40px 20px;
+            }
+            .timeline-title {
+                font-size: 1.5em;
+                margin-bottom: 30px;
+            }
+            .timeline-container {
+                padding-left: 60px;
+            }
+            .timeline-content {
+                padding: 15px;
+            }
+            .timeline-img-container {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 修正后的数学分析公式水印容器 -->
+    <div class="pde-watermark">
+        <div class="watermark-formula">数列极限定义: \( \forall\varepsilon>0,\exists N\in\mathbb{N},\forall n>N,|x_n-a|<\varepsilon \)</div>
+        <div class="watermark-formula">函数极限定义: \( \forall\varepsilon>0,\exists\delta>0,\forall x,0<<|x-x_0|<\delta,|f(x)-A|<\varepsilon \)</div>
+        <div class="watermark-formula">导数定义: \( f'(x_0)=\lim_{\Delta x\to0}\frac{f(x_0+\Delta x)-f(x_0)}{\Delta x} \)</div>
+        <div class="watermark-formula">微分中值定理: \( f(b)-f(a)=f'(\xi)(b-a),\xi\in(a,b) \)</div>
+        <div class="watermark-formula">泰勒公式: \( f(x)=\sum_{k=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k+R_n(x) \)</div>
+        <div class="watermark-formula">定积分定义: \( \int_a^b f(x)dx=\lim_{\lambda\to0}\sum_{i=1}^n f(\xi_i)\Delta x_i \)</div>
+        <div class="watermark-formula">牛顿-莱布尼茨公式: \( \int_a^b f(x)dx=F(b)-F(a),F'=f \)</div>
+        <div class="watermark-formula">格林公式: \( \oint_L Pdx+Qdy=\iint_D \left(\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}\right)dxdy \)</div>
+        <!-- 两种兼容写法，确保oiint能正确显示 -->
+        <div class="watermark-formula">高斯公式: \( \mathop{\iint}\limits_{\varSigma} Pdydz+Qdzdx+Rdxdy=\iiint_{\varOmega} \left(\frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}+\frac{\partial R}{\partial z}\right)dxdydz \)</div>
+        <div class="watermark-formula">级数收敛: \( \sum_{n=1}^\infty u_n=S\Leftrightarrow\lim_{n\to\infty}S_n=S \)</div>
+        <div class="watermark-formula">傅里叶级数: \( f(x)=\frac{a_0}{2}+\sum_{n=1}^\infty(a_n\cos nx+b_n\sin nx) \)</div>
+        <div class="watermark-formula">一致收敛: \( \forall\varepsilon>0,\exists N\in\mathbb{N},\forall n>N,\forall x\in I,|S_n(x)-S(x)|<\varepsilon \)</div>
+    </div>
+
+    <div class="page-wrapper">
+        <a href="../../math.html" class="back-btn">← 返回主页</a>
+        <div class="container">
+            <!-- 新增标题容器，包含主标题和拉格朗日名言 -->
+            <div class="title-container">
+                <h1>数学分析</h1>
+                <p class="lagrange-quote">“你们看见那个瘦小的年轻人吗？他将取代我们大家。”<br>——Joseph-Louis Lagrange</p>
+            </div>
+            
+            <p class="subtitle">Mathematical Analysis · 数学分析</p>
+            <p class="intro">
+                <p>数学分析学，也称分析数学、分析学或解析学（英语：Mathematical Analysis），是普遍存在于大学数学专业的一门基础课程。</p>
+                <p>大致与非数学专业学生所学的高等数学课程内容相近，但内容更加深入，一般指以微积分学、无穷级数和解析函数等的一般理论为主要内容，并包括它们的理论基础的一个较为完整的数学学科。</p>   
+                <p>数学分析研究的内容包括实数、复数、实函数及复变函数。数学分析是由微积分演进而来，在微积分发展至现代阶段中，从应用中的方法总结升华为一类综合性分析方法，且初等微积分中也包括许多数学分析的基础概念及技巧，可以认为这些应用方法是高等微积分生成的前提。数学分析的方式和其几何有关，不过只要任一数学空间有定义邻域（拓扑空间）或是有针对两对象距离的定义（度量空间），就可以用数学分析的方式进行分析。</p>   
+                &emsp;
+                <p>学院指定的教材是：《数学分析教程》 常庚哲 史济怀 著 </p>
+                &emsp;&emsp;
+                <p>推荐的教材是：</p>
+                <p>《数学分析教程》 常庚哲 史济怀 著</p>
+                <p>《数学分析新讲》 张筑生 著</p>
+                <p>《数学分析习题课讲义》 谢惠民 著</p>
+                <p>《Principles of Mathematical Analysis》 Walter Rudin 著</p>
+                <p> 清华大学于品数学分析讲义 于品 著</p>
+                <p> 当然除了本页面展示的教材之外，还有许多数学分析的经典教材值得一看，例如卓里奇，中科大程艺老师的数学分析，复旦大学的陈纪修老师的数学分析等，由于展示太多教材并无太大意义，若有兴趣同学可以自行搜索相关资源 </p>
+                &emsp;&emsp;
+                <p>在大连理工大学，该课程的任课教师是 程明松 副教授，钱晓元 教授（数学分析拓展 盘锦校区）课程分为三个学期讲授，重点涵盖极限理论、单变量微积分、多变量微积分、级数理论等核心内容，注重逻辑推理与严格证明。</p>
+                <p>教师主页：https://faculty.dlut.edu.cn/mscheng/zh_CN/index.htm（程明松）https://faculty.dlut.edu.cn/qianxiaoyuan/zh_CN/index.htm（钱晓元）</p>
+                <p>中科大史济怀数学分析教程录播课（bilibili）：https://www.bilibili.com/video/BV1SP411D7WE</p>
+                <p>中科大少年班数学分析B1课程录播课（bilibili）：https://www.bilibili.com/video/BV1Nr4y1U7qC</p>
+                <p>USTCguide：https://ustcguide-vuepress.vercel.app/coursedata/au52p8bq/</p>
+                <p>大连理工大学钱晓元教授的数学分析录播课（bilibili）：https://www.bilibili.com/video/BV1XK4y1x7N5/</p>
+            </p>
+
+            <div style="margin-bottom:30px">
+                <span class="difficulty">难度：较难 给分：中等 </span>
+            </div>
+
+            <h2 class="section-title">📚 参考书目</h2>
+            <h2 class="section-title">入门教材</h2>
+            <h3 class="section-title">中国科学技术大学 史济怀</h3>
+            <div class="card-grid" id="primary books"> 
+                <div class="pdf-card" data-pdf="数学分析教程  上册_常庚哲 史济怀.pdf"
+                    data-cover="《数学分析教程》上册封面.png"
+                    data-name="《数学分析教程》上册">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                <div class="pdf-card" data-pdf="数学分析教程  下册_常庚哲 史济怀.pdf" data-cover="《数学分析教程》下册封面.png"
+                    data-name="《数学分析教程》下册">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div> 
+            </div>
+            <h3 class="section-title">中国科学技术大学 徐森林</h3>
+         <div class="card-grid" id="primary books"> 
+                  <div class="pdf-card" data-pdf="数学分析 第一册 (徐森林 薛春华) (Z-Library).pdf" data-cover="数学分析徐森林第一册.jpg"
+                    data-name="数学分析 徐森林（第1册）">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                 <div class="pdf-card" data-pdf="数学分析（第二册） (徐森林, 薛春华) (Z-Library).pdf" data-cover="数学分析徐森林第二册.jpg"
+                    data-name="数学分析 徐森林（第2册）">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                 <div class="pdf-card" data-pdf="数学分析（第三册） (徐森林，金亚东，薛春华) (Z-Library).pdf" data-cover="数学分析徐森林第三册.jpg"
+                    data-name="数学分析 徐森林（第3册）">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-title">苏州大学 谢惠民</h3>
+            <div class="card-grid" id="primary books"> 
+                 <div class="pdf-card" data-pdf="数学分析习题课讲义(第2版)(上册) (谢惠民, 恽自求, 易法槐, 钱定边).pdf" data-cover="数学分析习题课讲义上.png"
+                    data-name="数学分析习题课讲义(第2版)(上册)">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                <div class="pdf-card" data-pdf="数学分析习题课讲义 下册（第2版） (谢惠民 恽自求 易法槐 钱定边 编).pdf" data-cover="数学分析习题课讲义下.png"
+                    data-name="数学分析习题课讲义(第2版)(下册)">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>  
+            </div>
+             <h3 class="section-title">北京大学 陈天权</h3>
+             <div class="card-grid" id="primary books"> 
+                 <div class="pdf-card" data-pdf="数学分析讲义 第一册 (陈天权 编著) (Z-Library).pdf" data-cover="数学分析讲义陈天权第一册.jpg"
+                    data-name="数学分析讲义 陈天权（第1册）">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                 <div class="pdf-card" data-pdf="数学分析讲义(第二册) (陈天权) (Z-Library).pdf" data-cover="数学分析讲义陈天权第二册.jpg"
+                    data-name="数学分析讲义 陈天权（第2册）">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                 <div class="pdf-card" data-pdf="数学分析讲义 (第三册) (陈天权) (Z-Library).pdf" data-cover="数学分析讲义陈天权第三册.jpg"
+                    data-name="数学分析讲义 陈天权（第3册）">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+             <h3 class="section-title">北京大学 张筑生</h3>
+            <div class="card-grid" id="primary books"> 
+                  <div class="pdf-card" data-pdf="a.pdf" data-cover="数学分析新讲1.jpg"
+                    data-name="数学分析新讲 张筑生（第1册）">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div> <div class="pdf-card" data-pdf="a.pdf" data-cover="数学分析新讲2.jpg"
+                    data-name="数学分析新讲 张筑生（第2册）">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div> <div class="pdf-card" data-pdf="a.pdf" data-cover="数学分析新讲3.jpg"
+                    data-name="数学分析新讲 张筑生（第3册）">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">拓展教材（学无止境）</h2> 
+            <div class="card-grid" id="books">    
+                <div class="pdf-card" data-pdf="a.pdf" data-cover="清华大学于品数学分析讲义.png"
+                    data-name="清华大学于品数学分析讲义">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                  <div class="pdf-card" data-pdf="数学分析（上册）2022 (楼红卫 编著) (Z-Library).pdf" data-cover="楼红卫上.jpg"
+                    data-name="数学分析 楼红卫 上册">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                  <div class="pdf-card" data-pdf="数学分析（下册）2022 (楼红卫 编著) (Z-Library).pdf" data-cover="楼红卫下.jpg"
+                    data-name="数学分析 楼红卫 下册">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                <div class="pdf-card" data-pdf="Principles of Mathematical Analysis Third Edition (Retyped, Edited, Updated) (Walter Rudin).pdf" data-cover="rudin.png"
+                    data-name="Principles of Mathematical Analysis">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div> 
+                
+            </div>
+
+
+            <h2 class="section-title">🚀 学习笔记</h2>
+            <div class="card-grid" id="notes">
+                <div class="pdf-card" data-pdf="数学分析教程（第3版）参考答案.pdf" data-cover="数学分析教程课后习题答案.png" data-name="数学分析教程课后习题答案"></div>
+                <div class="pdf-card" data-pdf="谢惠民-数学分析习题课讲义答案 (甲乙) .pdf" data-cover="谢惠民-数学分析习题课讲义答案 (甲乙).png" data-name="谢惠民-数学分析习题课讲义答案 (甲乙)"></div>
+            </div>
+
+            <h2 class="section-title">📝 历年试卷</h2>
+            中国科学技术大学数学课程试卷：https://ustcmathexam.github.io/Services/
+            <div class="card-grid" id="papers">
+                <div class="pdf-card" data-pdf="2025-数学分析-期末试卷.pdf" data-cover="2025数学分析期末试卷首页.png"
+                    data-name="2025 期末试卷">
+                </div>
+            </div>
+        </div>
+
+        <!-- 新增：数学分析发展沿革时间轴板块（含人物图像） -->
+        <section class="timeline-section">
+            <h2 class="timeline-title">📜 数学分析发展沿革</h2>
+            <div class="timeline">
+                <!-- 17世纪 - 微积分初创 -->
+                <div class="timeline-container left">
+                    <div class="timeline-content">
+                        <div class="timeline-year">17世纪</div>
+                        <div class="timeline-person">牛顿 (Isaac Newton) / 莱布尼茨 (Gottfried Leibniz)</div>
+                        <div class="timeline-desc">分别独立创立微积分，奠定数学分析的基础。牛顿从运动学角度提出“流数术”，莱布尼茨从几何学角度建立微分和积分符号体系，两人的工作共同开启了分析学的新纪元。</div>
+                    </div>
+                    <div class="timeline-img-container">
+                        <img src="newton.png" alt="牛顿" class="timeline-img">
+                        <img src="leibniz.png" alt="莱布尼茨" class="timeline-img">
+                    </div>
+                </div>
+
+                <!-- 18世纪 - 微积分发展 -->
+                <div class="timeline-container right">
+                    <div class="timeline-img-container">
+                        <img src="Eular.png" alt="欧拉" class="timeline-img">
+                        <img src="Lagrange.png" alt="拉格朗日" class="timeline-img">
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">18世纪</div>
+                        <div class="timeline-person">欧拉 (Leonhard Euler) / 拉格朗日 (Joseph-Louis Lagrange)</div>
+                        <div class="timeline-desc">欧拉系统发展了微积分的应用，创立了变分法；拉格朗日完善了微积分的理论体系，将分析学从几何直观转向代数化，其《分析力学》成为分析学应用的典范。</div>
+                    </div>
+                </div>
+
+                <!-- 19世纪初 - 严格化开端 -->
+                <div class="timeline-container left">
+                    <div class="timeline-content">
+                        <div class="timeline-year">19世纪初</div>
+                        <div class="timeline-person">柯西 (Augustin-Louis Cauchy)</div>
+                        <div class="timeline-desc">首次给出极限、连续性、导数、积分的严格定义，建立了柯西收敛准则，将微积分建立在严格的极限理论基础上，标志着数学分析严格化的开端。</div>
+                    </div>
+                    <div class="timeline-img-container">
+                        <img src="Cauchy.png" alt="柯西" class="timeline-img">
+                    </div>
+                </div>
+
+                <!-- 19世纪中期 - 实数理论建立 -->
+                <div class="timeline-container right">
+                    <div class="timeline-img-container">
+                        <img src="weierstrass.png" alt="魏尔斯特拉斯" class="timeline-img">
+                        <img src="riemann.png" alt="黎曼" class="timeline-img">
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">19世纪中期</div>
+                        <div class="timeline-person">魏尔斯特拉斯 (Karl Weierstrass) / 黎曼 (Bernhard Riemann)</div>
+                        <div class="timeline-desc">魏尔斯特拉斯提出ε-δ语言，完善了极限理论的严格表述；黎曼扩展了积分概念，建立黎曼积分理论，同时黎曼函数的研究推动了实变函数论的发展。</div>
+                    </div>
+                </div>
+
+                <!-- 19世纪后期 - 集合论基础 -->
+                <div class="timeline-container left">
+                    <div class="timeline-content">
+                        <div class="timeline-year">19世纪后期</div>
+                        <div class="timeline-person">康托尔 (Georg Cantor) / 戴德金 (Richard Dedekind)</div>
+                        <div class="timeline-desc">康托尔创立集合论，为数学分析提供了坚实的理论基础；戴德金通过分割理论严格定义实数，完善了实数系的构造，解决了分析学的基础危机。</div>
+                    </div>
+                    <div class="timeline-img-container">
+                        <img src="Cantor.png" alt="康托尔" class="timeline-img">
+                        <img src="dedekind.png" alt="戴德金" class="timeline-img">
+                    </div>
+                </div>
+
+                <!-- 20世纪 - 现代分析形成 -->
+                <div class="timeline-container right">
+                    <div class="timeline-img-container">
+                        <img src="lebesgue.png" alt="勒贝格" class="timeline-img">
+                        <img src="Hilbert.png" alt="希尔伯特" class="timeline-img">
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">20世纪</div>
+                        <div class="timeline-person">勒贝格 (Henri Lebesgue) / 希尔伯特 (David Hilbert)</div>
+                        <div class="timeline-desc">勒贝格建立测度论和勒贝格积分，扩展了积分理论的适用范围；希尔伯特的泛函分析理论将分析学推向抽象化、公理化，形成现代数学分析的完整体系。</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 柯西名言艺术字 -->
+            <div class="cauchy-quote">
+                “人们走了，但他们的功绩留下了。”——Augustin-Louis Cauchy
+            </div>
+        </section>
+
+        <!-- 评论区 -->
+        <section id="comment-shell">
+            <h3>💬 留下你的评论</h3>
+            <div class="comment-meta">
+                <input type="text" id="user-name" placeholder="用户名（必填）">
+                <input type="email" id="user-email" placeholder="邮箱（必填，用于头像）">
+            </div>
+            <textarea id="comment-content" rows="4" placeholder="说说你的想法…"></textarea>
+            <button id="comment-submit">发布评论</button>
+            <div id="comment-list"></div>
+        </section>
+    </div>
+
+    <script>
+        function buildCard(el) {
+            const pdf = el.dataset.pdf;
+            const cover = el.dataset.cover;
+            const name = el.dataset.name;
+            const coverEl = document.createElement('div');
+            coverEl.className = 'pdf-cover';
+            if (cover) {
+                const img = new Image();
+                img.src = cover;
+                img.alt = name;
+                img.onerror = () => { coverEl.classList.add('no-image'); coverEl.setAttribute('data-emoji', '📄'); };
+                coverEl.appendChild(img);
+            } else {
+                coverEl.classList.add('no-image');
+                coverEl.setAttribute('data-emoji', '📄');
+            }
+            const nameEl = document.createElement('div');
+            nameEl.className = 'pdf-name';
+            nameEl.textContent = name;
+            el.append(coverEl, nameEl);
+        }
+
+        document.addEventListener('click', e => {
+            const card = e.target.closest('.pdf-card');
+            if (!card) return;
+            const pdf = card.dataset.pdf;
+            if (!pdf) return;
+            card.classList.add('loading');
+            setTimeout(() => {
+                card.classList.remove('loading');
+                window.location.href = pdf;
+            }, 400);
+        });
+
+        document.querySelectorAll('.pdf-card').forEach(buildCard);
+    </script>
+</body>
+</html>

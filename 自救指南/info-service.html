@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>信息服务 - 大连理工大学自救手册</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; font-family: "Microsoft Yahei", sans-serif; }
+        
+        /* 左侧导航栏样式（与首页一致） */
+        .sidebar {
+            width: 220px;
+            background: #f8f9fa;
+            padding: 20px 10px;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #e9ecef;
+        }
+        .sidebar .search-box {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .sidebar ul { list-style: none; }
+        .sidebar .nav-item { margin: 5px 0; }
+        .sidebar .nav-link {
+            display: block;
+            padding: 10px 15px;
+            color: #343a40;
+            text-decoration: none;
+            font-size: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .sidebar .nav-link:hover { background: #e9ecef; }
+        .sidebar .nav-link.active {
+            background: #007bff;
+            color: white;
+        }
+        .sidebar .submenu {
+            margin-left: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .sidebar .submenu.show { max-height: 500px; }
+        .sidebar .submenu .nav-link {
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #495057;
+        }
+        
+        /* 右侧内容区样式（与首页一致） */
+        .content {
+            flex: 1;
+            padding: 30px 50px;
+            overflow-y: auto;
+            height: 100vh;
+            background: #ffffff;
+        }
+        .content h1 { margin-bottom: 20px; color: #212529; }
+        .content h2 { margin: 20px 0 10px; color: #343a40; }
+        .content p { line-height: 1.8; color: #495057; margin-bottom: 15px; }
+        .content ul { margin: 10px 0 20px 20px; }
+        .content li { line-height: 1.7; color: #495057; margin-bottom: 8px; }
+        .content a { color: #007bff; text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <!-- 左侧导航栏（与首页一致） -->
+    <div class="sidebar">
+        <input type="text" class="search-box" placeholder="搜索手册内容...">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="SaverGuidance.html" class="nav-link">首页</a>
+            </li>
+            <li class="nav-item">
+                <a href="quick-nav.html" class="nav-link">快速导航</a>
+            </li>
+            <li class="nav-item">
+                <div class="nav-link" onclick="toggleSubmenu(this)">学校简介</div>
+                <ul class="submenu">
+                    <li><a href="organization.html" class="nav-link">组织机构</a></li>
+                    <li><a href="websites.html" class="nav-link">常用网站</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="freshman.html" class="nav-link">新生指南</a>
+            </li>
+            <li class="nav-item">
+                <a href="info-service.html" class="nav-link active">信息服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="life-service.html" class="nav-link">生活服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="undergraduate.html" class="nav-link">本科生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="postgraduate.html" class="nav-link">研究生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="campus-culture.html" class="nav-link">校园文化</a>
+            </li>
+            <li class="nav-item">
+                <a href="personal-growth.html" class="nav-link">个人成长</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 右侧信息服务内容区 -->
+    <div class="content">
+        <h1>信息服务</h1>
+        <h2 id="account">账号与权限</h2>
+        <ul>
+            <li><strong>统一身份认证</strong>：账号为学号，初始密码为身份证后6位（含字母需大写），首次登录需修改；</li>
+            <li><strong>校园网账号</strong>：与统一身份认证账号一致，可在校内连接校园WiFi（DLUT-Student）；</li>
+            <li><strong>邮箱账号</strong>：学号@mail.dlut.edu.cn，密码与统一身份认证一致，用于接收校内通知；</li>
+            <li><strong>图书馆权限</strong>：凭校园卡/统一身份认证登录图书馆系统，可借阅图书、使用电子资源。</li>
+        </ul>
+
+        <h2 id="cert">证明材料办理</h2>
+        <ul>
+            <li><strong>在读证明</strong>：到学院学工办开具，需携带身份证/学生证；</li>
+            <li><strong>成绩单</strong>：本科生到教务处、研究生到研究生院打印，可自助打印或人工办理；</li>
+            <li><strong>学籍证明</strong>：教务处/研究生院办理，需提供个人信息；</li>
+            <li><strong>政审材料</strong>：到学院党委办公室办理，需提前预约。</li>
+        </ul>
+
+        <h2 id="notice">通知渠道</h2>
+        <ul>
+            <li>学校官网“通知公告”栏：<a href="https://www.dlut.edu.cn/tzgg" target="_blank">https://www.dlut.edu.cn/tzgg</a>；</li>
+            <li>学院官网/微信群/QQ群：重要的专业相关通知；</li>
+            <li>大工微门户：登录后可查看个性化通知；</li>
+            <li>校园广播、宣传栏：紧急通知或校园活动。</li>
+        </ul>
+    </div>
+
+    <!-- 交互脚本（与首页一致） -->
+    <script>
+        function toggleSubmenu(element) {
+            const submenu = element.nextElementSibling;
+            submenu.classList.toggle('show');
+            document.querySelectorAll('.submenu.show').forEach(item => {
+                if (item !== submenu) item.classList.remove('show');
+            });
+        }
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.href === window.location.href) {
+                link.classList.add('active');
+                const parentSubmenu = link.closest('.submenu');
+                if (parentSubmenu) parentSubmenu.classList.add('show');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新生指南 - 大连理工大学自救手册</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; font-family: "Microsoft Yahei", sans-serif; }
+        
+        /* 左侧导航栏样式（与首页一致） */
+        .sidebar {
+            width: 220px;
+            background: #f8f9fa;
+            padding: 20px 10px;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #e9ecef;
+        }
+        .sidebar .search-box {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .sidebar ul { list-style: none; }
+        .sidebar .nav-item { margin: 5px 0; }
+        .sidebar .nav-link {
+            display: block;
+            padding: 10px 15px;
+            color: #343a40;
+            text-decoration: none;
+            font-size: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .sidebar .nav-link:hover { background: #e9ecef; }
+        .sidebar .nav-link.active {
+            background: #007bff;
+            color: white;
+        }
+        .sidebar .submenu {
+            margin-left: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .sidebar .submenu.show { max-height: 500px; }
+        .sidebar .submenu .nav-link {
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #495057;
+        }
+        
+        /* 右侧内容区样式（与首页一致） */
+        .content {
+            flex: 1;
+            padding: 30px 50px;
+            overflow-y: auto;
+            height: 100vh;
+            background: #ffffff;
+        }
+        .content h1 { margin-bottom: 20px; color: #212529; }
+        .content h2 { margin: 20px 0 10px; color: #343a40; }
+        .content p { line-height: 1.8; color: #495057; margin-bottom: 15px; }
+        .content ul { margin: 10px 0 20px 20px; }
+        .content li { line-height: 1.7; color: #495057; margin-bottom: 8px; }
+        .content a { color: #007bff; text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <!-- 左侧导航栏（与首页一致） -->
+    <div class="sidebar">
+        <input type="text" class="search-box" placeholder="搜索手册内容...">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="SaverGuidance.html" class="nav-link">首页</a>
+            </li>
+            <li class="nav-item">
+                <a href="quick-nav.html" class="nav-link">快速导航</a>
+            </li>
+            <li class="nav-item">
+                <div class="nav-link" onclick="toggleSubmenu(this)">学校简介</div>
+                <ul class="submenu">
+                    <li><a href="organization.html" class="nav-link">组织机构</a></li>
+                    <li><a href="websites.html" class="nav-link">常用网站</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="freshman.html" class="nav-link active">新生指南</a>
+            </li>
+            <li class="nav-item">
+                <a href="info-service.html" class="nav-link">信息服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="life-service.html" class="nav-link">生活服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="undergraduate.html" class="nav-link">本科生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="postgraduate.html" class="nav-link">研究生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="campus-culture.html" class="nav-link">校园文化</a>
+            </li>
+            <li class="nav-item">
+                <a href="personal-growth.html" class="nav-link">个人成长</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 右侧新生指南内容区 -->
+    <div class="content">
+        <h1>新生指南</h1>
+        <h2>报到前准备</h2>
+        <ul>
+            <li>录取通知书、身份证、户口本复印件（建议准备5-10份）；</li>
+            <li>一寸/二寸证件照（蓝底/白底，建议准备20张，电子版备份）；</li>
+            <li>档案、团组织关系转接材料；</li>
+            <li>学费、住宿费可通过学校指定渠道提前缴纳，也可现场缴费；</li>
+            <li>生活用品：可自带或到校购买，校内超市、周边商场均可满足需求。</li>
+        </ul>
+
+        <h2>报到流程</h2>
+        <ul>
+            <li>到校后先到所在学院报到处登记，领取报到材料；</li>
+            <li>办理校园卡（含食堂、门禁、图书馆功能）；</li>
+            <li>宿舍分配：凭报到单到宿舍楼办理入住，领取钥匙；</li>
+            <li>户口迁移（自愿）：到保卫处办理相关手续；</li>
+            <li>体检：校医院统一安排，需空腹前往。</li>
+        </ul>
+
+        <h2>入学适应</h2>
+        <ul>
+            <li>军训：开学后统一开展，注意防晒、补水，遵守军训纪律；</li>
+            <li>选课：新生入学后会有选课指导，优先选专业基础课；</li>
+            <li>社团招新：开学后1-2周为“百团大战”，可根据兴趣加入；</li>
+            <li>校园熟悉：建议开学前几天逛逛校园，熟悉教学楼、食堂、图书馆位置；</li>
+            <li>求助渠道：遇到问题可联系辅导员、宿管或学院学工办。</li>
+        </ul>
+    </div>
+
+    <!-- 交互脚本（与首页一致） -->
+    <script>
+        function toggleSubmenu(element) {
+            const submenu = element.nextElementSibling;
+            submenu.classList.toggle('show');
+            document.querySelectorAll('.submenu.show').forEach(item => {
+                if (item !== submenu) item.classList.remove('show');
+            });
+        }
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.href === window.location.href) {
+                link.classList.add('active');
+                const parentSubmenu = link.closest('.submenu');
+                if (parentSubmenu) parentSubmenu.classList.add('show');
+            }
+        });
+    </script>
+</body>
+</html>

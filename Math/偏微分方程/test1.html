@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>偏微分方程 | 期末考试指导</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 引入MathJax支持LaTeX公式渲染 -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        /* ---- 通用样式 (ResearchGate 专业大气风格) ---- */
+        :root {
+            /* ResearchGate 学术配色体系 */
+            --primary: #006699;        /* 主蓝 */
+            --primary-light: #0088cc;  /* 高亮蓝 */
+            --primary-hover: #005580;  /* 深一级主色 */
+            --bg-primary: #ffffff;     /* 主背景 */
+            --bg-secondary: #f7f9fa;   /* 次要背景 */
+            --bg-tertiary: #f0f4f7;    /* 三级背景 */
+            --text-primary: #2c3e50;   /* 主文本色 */
+            --text-secondary: #64748b; /* 次要文本色 */
+            --border: #e2e8f0;         /* 边框色 */
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition: all 0.3s ease-in-out;
+            /* 新增水印颜色变量 */
+            --watermark-color: #e0e7ee;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.7;
+            padding: 0;
+            width: 100vw;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ---- 核心修改：PDE公式水印样式（右侧 + 真正同层） ---- */
+        .pde-watermark {
+            position: absolute; /* 改为absolute，和主内容同文档流层级 */
+            top: 0;
+            right: 20px; /* 右侧留20px间距，和主内容对齐 */
+            width: 280px;
+            height: 100%;
+            padding: 120px 20px 40px;
+            background: transparent;
+            z-index: 2; /* 和主内容容器同层级 */
+            pointer-events: none; /* 不影响交互 */
+            overflow: hidden;
+        }
+
+        .watermark-formula {
+            margin-bottom: 30px;
+            color: var(--watermark-color);
+            font-size: 14px;
+            line-height: 1.8;
+            font-weight: 500;
+            opacity: 0.95; /* 提高透明度，更贴近主内容 */
+        }
+
+        /* 页面容器 - 改为相对定位，作为水印的父容器 */
+        .page-wrapper {
+            width: 100vw;
+            margin: 0;
+            padding: 20px 20px 40px;
+            position: relative; /* 水印基于此容器定位 */
+            z-index: 1; 
+        }
+
+        /* 主内容容器 - 和水印同层级 */
+        .main-content-container {
+            position: relative;
+            z-index: 2; /* 和水印完全同层级 */
+        }
+
+        /* 返回按钮 - 固定在最左上角，层级最高 */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 999; /* 确保按钮在最上层 */
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            font-size: 1em;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: 500;
+            box-shadow: var(--shadow-sm);
+            border: none;
+            cursor: pointer;
+        }
+
+        /* 返回按钮动画效果 */
+        .back-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: var(--shadow-lg);
+            box-shadow: 0 8px 16px rgba(0, 102, 153, 0.25);
+        }
+
+        .back-btn:active {
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: var(--shadow-md);
+        }
+
+        .container {
+            width: 100%;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 60px 50px 50px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 40px;
+            max-width: none;
+            margin-top: 20px;
+            position: relative;
+            z-index: 2; /* 和水印同层级 */
+        }
+
+        /* 标题系统 - 左上方对齐，更有层次感 */
+        h1 {
+            font-size: 2.8em;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 20px;
+            letter-spacing: -0.5px;
+            text-align: left;
+            margin-left: 0;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        .intro {
+            font-size: 1.05em;
+            color: var(--text-primary);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .difficulty {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(220, 0, 0, 0.06);
+            border: 1px solid rgba(220, 0, 0, 0.15);
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            color: #c0392b;
+            margin: 15px 0 35px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            margin: 50px 0 30px;
+            border-left: 5px solid var(--primary);
+            padding-left: 20px;
+            color: var(--primary);
+            font-weight: 600;
+            text-align: left;
+        }
+
+        /* ---- 卡片网格 - 适配全屏布局 ---- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            width: 100%;
+            position: relative;
+            z-index: 2; /* 卡片和水印同层级 */
+        }
+
+        .pdf-card {
+            position: relative;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            z-index: 2; /* 确保卡片可点击 */
+        }
+
+        /* 恢复并强化悬浮效果 */
+        .pdf-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+
+        /* 封面区域 - 加大尺寸 */
+        .pdf-cover {
+            width: 100%;
+            height: 320px;
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 2.5em;
+            position: relative;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pdf-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .pdf-cover.no-image::after {
+            content: attr(data-emoji);
+            font-size: 2em;
+            opacity: 0.8;
+        }
+
+        .pdf-name {
+            padding: 20px 15px;
+            text-align: center;
+            font-size: 1.05em;
+            font-weight: 500;
+            color: var(--text-primary);
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 加载动画 */
+        .loading {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.92);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s;
+        }
+
+        .pdf-card.loading .loading {
+            opacity: 1
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--bg-tertiary);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }    
+        /* ---- 评论区 - 同步全屏风格 ---- */
+        #comment-shell {
+            width: 100%;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            color: var(--text-primary);
+            box-shadow: var(--shadow-md);
+            max-width: none;
+            position: relative;
+            z-index: 2; /* 评论区和水印同层级 */
+        }
+
+        #comment-shell h3 {
+            font-size: 1.6em;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+            text-align: left;
+        }
+
+        .comment-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px
+        }
+
+        .comment-meta input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            outline: none;
+            font-size: 1em;
+            transition: var(--transition);
+        }
+
+        .comment-meta input:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(0, 136, 204, 0.1);
+        }
+
+        #comment-content {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            resize: vertical;
+            outline: none;
+            font-size: 1em;
+            min-height: 120px;
+            transition: var(--transition);
+            margin-bottom: 15px;
+        }
+
+        #comment-content:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(0, 136, 204, 0.1);
+        }
+
+        #comment-submit {
+            padding: 12px 30px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: var(--primary);
+            color: white;
+            font-size: 1.05em;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        #comment-submit:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        #comment-list {
+            margin-top: 40px
+        }
+
+        /* ---- 响应式优化 ---- */
+        @media(max-width: 992px) {
+            .pde-watermark {
+                display: none; /* 移动端隐藏水印 */
+            }
+            .page-wrapper {
+                padding: 15px 15px 30px;
+            }
+            .container {
+                padding: 50px 40px 40px;
+            }
+            h1 {
+                font-size: 2.4em;
+            }
+            .section-title {
+                font-size: 1.6em;
+            }
+            .card-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            .pdf-cover {
+                height: 280px;
+            }
+            .back-btn {
+                padding: 10px 20px;
+                font-size: 0.95em;
+            }
+        }
+
+        @media(max-width: 600px) {
+            .container {
+                padding: 45px 25px 25px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            .pdf-cover {
+                height: 240px;
+            }
+            .comment-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .back-btn {
+                padding: 8px 16px;
+                font-size: 0.9em;
+                top: 15px;
+                left: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <!-- PDE公式水印容器（右侧 + 真正同层） -->
+        <div class="pde-watermark">
+            <div class="watermark-formula">波动方程: \( u_{tt} - c^2 \Delta u = f(x,t) \)</div>
+            <div class="watermark-formula">热方程: \( u_t - k \Delta u = f(x,t) \)</div>
+            <div class="watermark-formula">Laplace方程: \( \Delta u = 0 \)</div>
+            <div class="watermark-formula">Poisson方程: \( \Delta u = f(x) \)</div>
+            <div class="watermark-formula">Cauchy问题: \( \begin{cases} u_{tt}-c^2u_{xx}=0 \\ u(x,0)=\phi(x) \\ u_t(x,0)=\psi(x) \end{cases} \)</div>
+            <div class="watermark-formula">达朗贝尔公式: \( u(x,t)=\frac{1}{2}[\phi(x+ct)+\phi(x-ct)]+\frac{1}{2c}\int_{x-ct}^{x+ct}\psi(s)ds \)</div>
+            <div class="watermark-formula">分离变量法: \( u(x,t)=X(x)T(t) \)</div>
+            <div class="watermark-formula">Fourier变换: \( \hat{f}(\xi)=\int_{\mathbb{R}^n}f(x)e^{-2\pi i x\cdot\xi}dx \)</div>
+            <div class="watermark-formula">Fourier逆变换: \( f(x)=\int_{\mathbb{R}^n}\hat{f}(\xi)e^{2\pi i x\cdot\xi}d\xi \)</div>
+            <div class="watermark-formula">Laplace变换: \( \mathcal{L}\{f(t)\}(s)=\int_0^\infty f(t)e^{-st}dt \)</div>
+            <div class="watermark-formula">Parseval恒等式: \( \int_{\mathbb{R}^n}|f(x)|^2dx=\int_{\mathbb{R}^n}|\hat{f}(\xi)|^2d\xi \)</div>
+            <div class="watermark-formula">Green公式: \( \int_\Omega \nabla u\cdot\nabla v dx = -\int_\Omega u\Delta v dx + \int_{\partial\Omega}u\frac{\partial v}{\partial n}dS \)</div>
+        </div>
+
+        <!-- 主内容容器 - 和水印同层级 -->
+        <div class="main-content-container">
+            <a href="../../math.html" class="back-btn">← 返回主页</a>
+            <div class="container">
+                <h1>偏微分方程</h1>
+                <p class="subtitle">Partial Differential Equation · 偏微分方程理论</p>
+                <p class="intro">
+                    <p>偏微分方程（英语：partial differential equation，缩写作PDE）指含有未知函数及其偏导数的方程。描述自变量、未知函数及其偏导数之间的关系。符合这个关系的函数是方程的解。</p>
+                    <p>学院指定的教材是：《equations and analytical tools in mathematical physics compress》 </p>
+                    &emsp;&emsp;
+                    <p>推荐的教材是：</p>
+                    <p>《equations and analytical tools in mathematical physics compress》 Yichao Zhu 著</p>
+                    <p>《偏微分方程》 周蜀林 著</p>
+                    &emsp;&emsp;
+                    <p>在大连理工大学盘锦校区，该课程的任课教师是刘凤楠讲师，她的PPT问题很多，如果你指望通过浪费自己的时间来读懂她那些符号不统一，授课逻辑混乱的PPT会很难受的。</p>
+                    <p>教师主页：刘凤楠 讲师还没有教师主页</p>
+                </p>
+
+                <div style="margin-bottom:30px">
+                    <span class="difficulty">难度：困难 给分：低 </span>
+                </div>
+
+                <!-- 栏目 1：参考书目 -->
+                <h2 class="section-title">📚 参考书目</h2>
+                <div class="card-grid" id="books">
+                    <!-- 卡片 1 -->
+                    <div class="pdf-card" data-pdf="equations-and-analytical-tools-in-mathematical-physics_compress.pdf"
+                        data-cover="equations-and-analytical-tools-in-mathematical-physics_compress.png"
+                        data-name="equations-and-analytical-tools-in-mathematical-physics_compress">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                    <!-- 卡片 2 -->
+                    <div class="pdf-card" data-pdf="偏微分方程 (周蜀林) .pdf" data-cover="PDEzhoushulin.jpg"
+                        data-name="偏微分方程 (周蜀林) ">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                    <!-- 卡片 3 -->
+                    <div class="pdf-card" data-pdf="偏微分方程 (丘成桐) .pdf" data-cover="yauPDEcover.jpg"
+                        data-name="偏微分方程 (丘成桐)">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                    <!-- 卡片 4 -->
+                    <div class="pdf-card" data-pdf="偏微分方程：第二版 Lawrence C. Evans.pdf" data-cover="EvansPDEcover.jpg"
+                        data-name="偏微分方程：第二版 Lawrence C. Evans">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                    <!-- 如需更多，按同样格式继续追加 -->
+                </div>
+
+                <!-- 栏目 2：速通笔记 -->
+                <h2 class="section-title">🚀 速通笔记</h2>
+                <div class="card-grid" id="notes">
+                    <div class="pdf-card" data-pdf="PDE_note.pdf" data-cover="首页.png" data-name="PDE笔记"></div>
+                </div>
+
+                <!-- 栏目 3：历年试卷 -->
+                <h2 class="section-title">📝 历年试卷</h2>
+                <div class="card-grid" id="papers">
+                    <div class="pdf-card" data-pdf="2025-PDE-期末试卷.pdf" data-cover="2025-PDE-期末试卷_首页.png"
+                        data-name="2025 期末试卷">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== 评论区外壳 ===================== -->
+            <section id="comment-shell">
+                <h3>💬 留下你的评论</h3>
+
+                <!-- 用户信息栏 -->
+                <div class="comment-meta">
+                    <input type="text" id="user-name" placeholder="用户名（必填）">
+                    <input type="email" id="user-email" placeholder="邮箱（必填，用于头像）">
+                </div>
+
+                <!-- 内容区 -->
+                <textarea id="comment-content" rows="4" placeholder="说说你的想法…"></textarea>
+
+                <!-- 发布按钮 -->
+                <button id="comment-submit">发布评论</button>
+
+                <!-- 第三方评论系统会在这里渲染列表 -->
+                <!-- 插件插这里 -->
+                <div id="comment-list"></div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        /* ---------- 通用逻辑 (保持不变) ---------- */
+        function buildCard(el) {
+            const pdf = el.dataset.pdf;
+            const cover = el.dataset.cover;
+            const name = el.dataset.name;
+            /* 封面图 */
+            const coverEl = document.createElement('div');
+            coverEl.className = 'pdf-cover';
+            if (cover) {
+                const img = new Image();
+                img.src = cover;
+                img.alt = name;
+                img.onerror = () => { coverEl.classList.add('no-image'); coverEl.setAttribute('data-emoji', '📄'); };
+                coverEl.appendChild(img);
+            } else {
+                coverEl.classList.add('no-image');
+                coverEl.setAttribute('data-emoji', '📄');
+            }
+            /* 文件名 */
+            const nameEl = document.createElement('div');
+            nameEl.className = 'pdf-name';
+            nameEl.textContent = name;
+            el.append(coverEl, nameEl);
+        }
+        /* 点击：直接打开本地 PDF（浏览器阅读器） */
+        document.addEventListener('click', e => {
+            const card = e.target.closest('.pdf-card');
+            if (!card) return;
+            const pdf = card.dataset.pdf;
+            if (!pdf) return;
+            card.classList.add('loading');
+            setTimeout(() => {          /* 假装加载 */
+                card.classList.remove('loading');
+                window.location.href = pdf;   // 仅打开，不下载
+            }, 400);
+        });
+        /* 初始化 */
+        document.querySelectorAll('.pdf-card').forEach(buildCard);
+
+        // 初始化MathJax渲染公式
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+</body>
+
+</html>

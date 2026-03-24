@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学校简介 - 组织机构</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; font-family: "Microsoft Yahei", sans-serif; }
+        
+        /* 左侧导航栏样式 */
+        .sidebar {
+            width: 220px;
+            background: #f8f9fa;
+            padding: 20px 10px;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #e9ecef;
+        }
+        .sidebar .search-box {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .sidebar ul { list-style: none; }
+        .sidebar .nav-item { margin: 5px 0; }
+        /* 主菜单样式 */
+        .sidebar .nav-link {
+            display: block;
+            padding: 10px 15px;
+            color: #343a40;
+            text-decoration: none;
+            font-size: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .sidebar .nav-link:hover { background: #e9ecef; }
+        .sidebar .nav-link.active {
+            background: #007bff;
+            color: white;
+        }
+        /* 下拉子菜单样式 */
+        .sidebar .submenu {
+            margin-left: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .sidebar .submenu.show { max-height: 500px; }
+        .sidebar .submenu .nav-link {
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #495057;
+        }
+        
+        /* 右侧内容区样式 */
+        .content {
+            flex: 1;
+            padding: 30px 50px;
+            overflow-y: auto;
+            height: 100vh;
+            background: #ffffff;
+        }
+        .content h1 { margin-bottom: 20px; color: #212529; }
+        .content h2 { margin: 20px 0 10px; color: #343a40; }
+        .content p { line-height: 1.8; color: #495057; margin-bottom: 15px; }
+        .content ul { margin: 10px 0 20px 20px; }
+        .content li { line-height: 1.7; color: #495057; margin-bottom: 8px; }
+        .content a { color: #007bff; text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <!-- 与首页完全一致的左侧导航栏 -->
+    <div class="sidebar">
+        <input type="text" class="search-box" placeholder="搜索手册内容...">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="SaverGuidance.html" class="nav-link active">首页</a>
+            </li>
+            <li class="nav-item">
+                <a href="quick-nav.html" class="nav-link">快速导航</a>
+            </li>
+            <!-- 学校简介（带子菜单） -->
+            <li class="nav-item">
+                <div class="nav-link" onclick="toggleSubmenu(this)">学校简介</div>
+                <ul class="submenu show">
+                    <li><a href="organization.html" class="nav-link active">组织机构</a></li>
+                    <li><a href="websites.html" class="nav-link">常用网站</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="freshman.html" class="nav-link">新生指南</a>
+            </li>
+            <li class="nav-item">
+                <a href="info-service.html" class="nav-link">信息服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="life-service.html" class="nav-link">生活服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="undergraduate.html" class="nav-link">本科生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="postgraduate.html" class="nav-link">研究生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="campus-culture.html" class="nav-link">校园文化</a>
+            </li>
+            <li class="nav-item">
+                <a href="personal-growth.html" class="nav-link">个人成长</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 组织机构页面专属内容 -->
+    <div class="content">
+        <h1>组织机构</h1>
+        <h2>校级职能部门</h2>
+        <ul>
+            <li><strong>校长办公室</strong>：负责学校日常行政事务协调、公文处理、会议组织等；</li>
+            <li><strong>教务处</strong>：本科教学管理、选课安排、考试组织、成绩管理、学籍处理等；</li>
+            <li><strong>研究生院</strong>：研究生招生、培养方案制定、学位授予、研究生管理等；</li>
+            <li><strong>学生工作处（学工部）</strong>：学生日常管理、评奖评优、助学金、心理健康教育等；</li>
+            <li><strong>后勤处</strong>：校园后勤保障、宿舍管理、食堂运营、校园环境维护等；</li>
+            <li><strong>保卫处</strong>：校园安全、门禁管理、突发事件处理、户籍办理等；</li>
+            <li><strong>图书馆</strong>：文献资源管理、借阅服务、电子资源使用、自习室安排等。</li>
+        </ul>
+
+        <h2>主要学院设置</h2>
+        <ul>
+            <li>机械工程学院</li>
+            <li>化工学院</li>
+            <li>土木工程学院</li>
+            <li>电子信息与电气工程学院</li>
+            <li>计算机科学与技术学院</li>
+            <li>管理与经济学部</li>
+            <li>人文与社会科学学部</li>
+            <li>材料科学与工程学院</li>
+            <li>环境学院</li>
+            <li>建筑与艺术学院</li>
+        </ul>
+    </div>
+
+    <!-- 与首页完全一致的交互脚本 -->
+    <script>
+        // 切换子菜单展开/收起
+        function toggleSubmenu(element) {
+            const submenu = element.nextElementSibling;
+            submenu.classList.toggle('show');
+            // 自动收起其他展开的子菜单
+            document.querySelectorAll('.submenu.show').forEach(item => {
+                if (item !== submenu) item.classList.remove('show');
+            });
+        }
+
+        // 高亮当前页面的导航项
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.href === window.location.href) {
+                link.classList.add('active');
+                // 子菜单页面自动展开父菜单
+                const parentSubmenu = link.closest('.submenu');
+                if (parentSubmenu) {
+                    parentSubmenu.classList.add('show');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

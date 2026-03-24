@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大连理工大学自救手册</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; font-family: "Microsoft Yahei", sans-serif; }
+        
+        /* 左侧导航栏样式 */
+        .sidebar {
+            width: 220px;
+            background: #f8f9fa;
+            padding: 20px 10px;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #e9ecef;
+        }
+        .sidebar .search-box {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .sidebar ul { list-style: none; }
+        .sidebar .nav-item { margin: 5px 0; }
+        /* 主菜单样式 */
+        .sidebar .nav-link {
+            display: block;
+            padding: 10px 15px;
+            color: #343a40;
+            text-decoration: none;
+            font-size: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .sidebar .nav-link:hover { background: #e9ecef; }
+        .sidebar .nav-link.active {
+            background: #007bff;
+            color: white;
+        }
+        /* 下拉子菜单样式 */
+        .sidebar .submenu {
+            margin-left: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .sidebar .submenu.show { max-height: 500px; }
+        .sidebar .submenu .nav-link {
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #495057;
+        }
+        
+        /* 右侧内容区样式 */
+        .content {
+            flex: 1;
+            padding: 30px 50px;
+            overflow-y: auto;
+            height: 100vh;
+            background: #ffffff;
+        }
+        .content h1 { margin-bottom: 20px; color: #212529; }
+        .content h2 { margin: 20px 0 10px; color: #343a40; }
+        .content p { line-height: 1.8; color: #495057; margin-bottom: 15px; }
+        .content ul { margin: 10px 0 20px 20px; }
+        .content li { line-height: 1.7; color: #495057; margin-bottom: 8px; }
+        .content a { color: #007bff; text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <!-- 左侧导航栏 -->
+    <div class="sidebar">
+        <input type="text" class="search-box" placeholder="搜索手册内容...">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="SaverGuidance.html" class="nav-link active">首页</a>
+            </li>
+            <li class="nav-item">
+                <a href="quick-nav.html" class="nav-link">快速导航</a>
+            </li>
+            <!-- 学校简介（带组织机构、常用网站子菜单） -->
+            <li class="nav-item">
+                <div class="nav-link" onclick="toggleSubmenu(this)">学校简介</div>
+                <ul class="submenu">
+                    <li><a href="organization.html" class="nav-link">组织机构</a></li>
+                    <li><a href="websites.html" class="nav-link">常用网站</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="freshman.html" class="nav-link">新生指南</a>
+            </li>
+            <li class="nav-item">
+                <a href="info-service.html" class="nav-link">信息服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="life-service.html" class="nav-link">生活服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="undergraduate.html" class="nav-link">本科生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="postgraduate.html" class="nav-link">研究生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="campus-culture.html" class="nav-link">校园文化</a>
+            </li>
+            <li class="nav-item">
+                <a href="personal-growth.html" class="nav-link">个人成长</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 右侧首页内容区 -->
+    <div class="content">
+        <h1>大连理工大学自救手册</h1>
+        <p>现在，我设想你们中的一个人来到我的办公室说：“Ponder，我听了所有的课，我参加了期中考试，我还是试着去做习题，可是我一点也不会做，我想我是班上最差的学生，我不知道该怎么办。”
+我要对你说什么呢？
+我要指出的第一件事是：进入大连理工大学在某种意义上具有优势，但从另一个角度来看是不利条件。某些优势你们原来大概已经知道，但是现在已经忘记了。这些优势包括这样一些事实，就是学校有985的title，而且这样的title是应得的。这里有相当好的课程。（我不知道关于我们这一门课程如何，当然我对它有自己的看法。）从大连理工大学毕业的人，当他们进入工业领域，或去做研究工作，等等，都说他们在这里受到了非常好的教育，当他们把自己和曾经进其他学校的人相比较（虽然其他学校也非常好），他们从未发现他们落在后面并缺少了某些东西；他们总觉得他们进了所有学校中最好的学校，这就是优势的方面。
+但是也有某种不利因素：因为大连理工大学有如此好的名声，几乎所有在高中班级里第一，第二名学生都会考虑来这里。有许许多多高中，所有最优秀的学生都来这里。现在我们试图制定一个选择系统，有各种测验，因此我们招收到最优秀中最优秀的学生，所以你们这些小伙子都是从所有这些来报名的学生中仔细挑选出来的。然而我们仍旧需要不断工作，因为我们发现非常严重的问题：无论我们多么严格地选择这些学生，无论我们多么耐心地进行分析，当他们进校以后会发生一些情况——结果总是有差不多一半的学生在平均水平以下！
+当然，你们会对这个结论嗤之以鼻，因为对于有理性的头脑来说这是不证自明的，但对于重感情的心灵来说就不是这样。你在高中的数学课上一直都是第一名或者第二名（或者即使只有第三名）。你知道在你原来中学里的数学课在平均水平以下的每一个人都是十足的傻瓜，现在你突然发现你自己在平均水平之下——你们这些小伙子一半都是低的可怕，因为你们想象着意味着比较起来你们笨到像以前高中里的那些家伙一样。这就是大连理工大学的不利因素：心理上的打击很难承受。当然，我不是心理学家；我想象所有这些，其实并不知道是否真的是这样！
+问题在于，如果你发现你是低于平均水平该怎么办，有两种可能性。首先，你可能发现你必须设法摆脱这种困境，从而感到如此的困难和烦恼——这是感情上的问题。你可以运用你的理性思维对待这个问题，并对你自己指明我刚才给你指出的问题：在这里一半的学生都低于平均水平，即使他们原来都是拔尖的学生，所以这并不意味任何了不起的事情。你看，如果你对这种无意义的蠢话或者不舒服的感觉忍耐四年，然后你走出学校再进入世界，你会发现世界仍旧像以前那样——例如，你在某个地方找到了工作，你会发现你又是第一号人物。你得到做专家的巨大满足，在这个特定的工厂里，当他们不能计算怎样将英寸换算成厘米时都来向你求救！这是真的：到工厂去的人，或者到一所在数学方面没有极好声誉的小学校，即使他们曾经在班上是倒数第三名，倒数第五名或倒数第十名——如果他们不努力鞭策自己，他们就会发现他们自己是大大地被看重的，他们在这里学到的东西非常有用，他们回到了他们以前的状态：快活，第一号人物。
+另一方面，你可能犯了一个错误，有些人可能鞭策自己力争这样的地位，就是他们坚持一定要成为第一号人物，不管其他各种条件，他们要进研究生院，他们要成为最好的学校里的最好的博士，即使他们开始时是这个班上最差的学生。不过，他们很可能失望。并且在他们今后的生命中总是在第一流的人群中最低的地位，因为他们选择了这一群体，这使他们感到痛苦。这是一个问题，这轮到你了——这取决于你的个性。
+就这样如果你能承受这个心理上的打击——加入你可以对自己说“我在班上属于最差的三分之一当中，不过班上有三分之一的家伙在这最差的三分之一中，因为事实就是这样！在高中的时候我是顶尖的学生并且我仍旧是一个聪明的家伙。我们国家需要科学家，我要做一个科学家，当我从这所学校毕业以后，我会一切顺利，见鬼去吧！我会成为一名优秀的科学家！”——然后这将成为事实：你会成为一名优秀的科学家。
+唯一的问题是，在这四年中能不能不顾理性的论据保持愉快的心情。如果你发现你不能保持愉快的心情，我建议最好的出路是试试到另一个地方去。这不是失败，这只是感情上的问题。
+</p>
+    <p>原著为费恩曼物理学讲义补编序</p>
+    
+        <h2>手册使用说明</h2>
+        <ul>
+            <li>左侧导航栏可快速定位核心内容，点击“学校简介”可展开查看“组织机构”“常用网站”等子菜单；</li>
+            <li>每个导航选项对应独立的页面，包含该分类下的详细信息；</li>
+            <li>可通过顶部搜索框快速查找手册内的关键词内容（后续可扩展搜索功能）；</li>
+            <li>手册内容会持续更新，欢迎各位同学补充完善。</li>
+        </ul>
+
+        <h2>核心内容板块</h2>
+        <ul>
+            <li><strong>学校简介</strong>：包含学校组织机构、常用官方网站等基础信息；</li>
+            <li><strong>新生指南</strong>：新生报到、入学适应、校园认知等专属内容；</li>
+            <li><strong>生活服务</strong>：食堂、宿舍、交通、校园卡等日常生活相关信息；</li>
+            <li><strong>学习相关</strong>：本科生/研究生学习资源、选课、考试、科研等内容。</li>
+        </ul>
+    </div>
+       
+       
+
+    <!-- 下拉菜单交互脚本 -->
+    <script>
+        // 切换子菜单展开/收起
+        function toggleSubmenu(element) {
+            const submenu = element.nextElementSibling;
+            submenu.classList.toggle('show');
+            // 自动收起其他展开的子菜单
+            document.querySelectorAll('.submenu.show').forEach(item => {
+                if (item !== submenu) item.classList.remove('show');
+            });
+        }
+
+        // 高亮当前页面的导航项
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.href === window.location.href) {
+                link.classList.add('active');
+                // 子菜单页面自动展开父菜单
+                const parentSubmenu = link.closest('.submenu');
+                if (parentSubmenu) {
+                    parentSubmenu.classList.add('show');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

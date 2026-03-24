@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人成长 - 大连理工大学自救手册</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; font-family: "Microsoft Yahei", sans-serif; }
+        
+        /* 左侧导航栏样式（与首页一致） */
+        .sidebar {
+            width: 220px;
+            background: #f8f9fa;
+            padding: 20px 10px;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #e9ecef;
+        }
+        .sidebar .search-box {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .sidebar ul { list-style: none; }
+        .sidebar .nav-item { margin: 5px 0; }
+        .sidebar .nav-link {
+            display: block;
+            padding: 10px 15px;
+            color: #343a40;
+            text-decoration: none;
+            font-size: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .sidebar .nav-link:hover { background: #e9ecef; }
+        .sidebar .nav-link.active {
+            background: #007bff;
+            color: white;
+        }
+        .sidebar .submenu {
+            margin-left: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .sidebar .submenu.show { max-height: 500px; }
+        .sidebar .submenu .nav-link {
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #495057;
+        }
+        
+        /* 右侧内容区样式（与首页一致） */
+        .content {
+            flex: 1;
+            padding: 30px 50px;
+            overflow-y: auto;
+            height: 100vh;
+            background: #ffffff;
+        }
+        .content h1 { margin-bottom: 20px; color: #212529; }
+        .content h2 { margin: 20px 0 10px; color: #343a40; }
+        .content p { line-height: 1.8; color: #495057; margin-bottom: 15px; }
+        .content ul { margin: 10px 0 20px 20px; }
+        .content li { line-height: 1.7; color: #495057; margin-bottom: 8px; }
+        .content a { color: #007bff; text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <!-- 左侧导航栏（与首页一致） -->
+    <div class="sidebar">
+        <input type="text" class="search-box" placeholder="搜索手册内容...">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="SaverGuidance.html" class="nav-link">首页</a>
+            </li>
+            <li class="nav-item">
+                <a href="quick-nav.html" class="nav-link">快速导航</a>
+            </li>
+            <li class="nav-item">
+                <div class="nav-link" onclick="toggleSubmenu(this)">学校简介</div>
+                <ul class="submenu">
+                    <li><a href="organization.html" class="nav-link">组织机构</a></li>
+                    <li><a href="websites.html" class="nav-link">常用网站</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="freshman.html" class="nav-link">新生指南</a>
+            </li>
+            <li class="nav-item">
+                <a href="info-service.html" class="nav-link">信息服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="life-service.html" class="nav-link">生活服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="undergraduate.html" class="nav-link">本科生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="postgraduate.html" class="nav-link">研究生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="campus-culture.html" class="nav-link">校园文化</a>
+            </li>
+            <li class="nav-item">
+                <a href="personal-growth.html" class="nav-link active">个人成长</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 右侧个人成长内容区 -->
+    <div class="content">
+        <h1>个人成长</h1>
+        <h2 id="psychology">心理健康</h2>
+        <ul>
+            <li>心理咨询中心：提供免费一对一心理咨询，预约电话0411-84708228，地址：大学生活动中心3楼；</li>
+            <li>心理课程：开设心理健康必修课/选修课，帮助学生调节情绪、应对压力；</li>
+            <li>心理活动：每年5月举办心理健康月，含心理讲座、团体辅导、趣味活动；</li>
+            <li>危机干预：遇到心理危机可随时联系辅导员或心理咨询中心，24小时有值班老师。</li>
+        </ul>
+
+        <h2 id="skill">技能提升</h2>
+        <ul>
+            <li>语言技能：学校开设四六级、托福/雅思、日语/韩语等语言培训班；</li>
+            <li>办公技能：图书馆定期举办Office、PS、Python等办公/编程技能培训；</li>
+            <li>职业技能：就业中心提供简历制作、面试技巧、职业规划等培训；</li>
+            <li>证书考取：计算机二级、教师资格证、注册会计师等证书，学校有对应的辅导课程。</li>
+        </ul>
+
+        <h2 id="practice">实践经历</h2>
+        <ul>
+            <li>实习：就业中心定期发布实习信息，可申请校内实习、企业实习、政府见习；</li>
+            <li>志愿服务：校青协组织支教、环保、社区服务等志愿活动，可积累志愿时长；</li>
+            <li>社会实践：每年寒暑假组织“三下乡”社会实践，深入基层开展调研、服务；</li>
+            <li>创新创业：创新创业学院提供创业培训、项目孵化、资金支持，鼓励学生创业。</li>
+        </ul>
+
+        <h2 id="career">职业规划</h2>
+        <ul>
+            <li>职业测评：就业中心提供免费职业测评，帮助学生了解自身职业倾向；</li>
+            <li>生涯辅导：一对一职业规划辅导，制定短期/长期职业目标；</li>
+            <li>就业方向：工科生可选择研发、工程、管理等方向，文科生可选择教育、传媒、公务员等方向；</li>
+            <li>升学/就业：大二/大三确定升学或就业方向，升学需提前准备考研/保研，就业需提前积累实习经历。</li>
+        </ul>
+    </div>
+
+    <!-- 交互脚本（与首页一致） -->
+    <script>
+        function toggleSubmenu(element) {
+            const submenu = element.nextElementSibling;
+            submenu.classList.toggle('show');
+            document.querySelectorAll('.submenu.show').forEach(item => {
+                if (item !== submenu) item.classList.remove('show');
+            });
+        }
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.href === window.location.href) {
+                link.classList.add('active');
+                const parentSubmenu = link.closest('.submenu');
+                if (parentSubmenu) parentSubmenu.classList.add('show');
+            }
+        });
+    </script>
+</body>
+</html>

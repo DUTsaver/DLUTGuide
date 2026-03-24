@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>本科生学习 - 大连理工大学自救手册</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; font-family: "Microsoft Yahei", sans-serif; }
+        
+        /* 左侧导航栏样式（与首页一致） */
+        .sidebar {
+            width: 220px;
+            background: #f8f9fa;
+            padding: 20px 10px;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #e9ecef;
+        }
+        .sidebar .search-box {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .sidebar ul { list-style: none; }
+        .sidebar .nav-item { margin: 5px 0; }
+        .sidebar .nav-link {
+            display: block;
+            padding: 10px 15px;
+            color: #343a40;
+            text-decoration: none;
+            font-size: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .sidebar .nav-link:hover { background: #e9ecef; }
+        .sidebar .nav-link.active {
+            background: #007bff;
+            color: white;
+        }
+        .sidebar .submenu {
+            margin-left: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .sidebar .submenu.show { max-height: 500px; }
+        .sidebar .submenu .nav-link {
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #495057;
+        }
+        
+        /* 右侧内容区样式（与首页一致） */
+        .content {
+            flex: 1;
+            padding: 30px 50px;
+            overflow-y: auto;
+            height: 100vh;
+            background: #ffffff;
+        }
+        .content h1 { margin-bottom: 20px; color: #212529; }
+        .content h2 { margin: 20px 0 10px; color: #343a40; }
+        .content p { line-height: 1.8; color: #495057; margin-bottom: 15px; }
+        .content ul { margin: 10px 0 20px 20px; }
+        .content li { line-height: 1.7; color: #495057; margin-bottom: 8px; }
+        .content a { color: #007bff; text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <!-- 左侧导航栏（与首页一致） -->
+    <div class="sidebar">
+        <input type="text" class="search-box" placeholder="搜索手册内容...">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="SaverGuidance.html" class="nav-link">首页</a>
+            </li>
+            <li class="nav-item">
+                <a href="quick-nav.html" class="nav-link">快速导航</a>
+            </li>
+            <li class="nav-item">
+                <div class="nav-link" onclick="toggleSubmenu(this)">学校简介</div>
+                <ul class="submenu">
+                    <li><a href="organization.html" class="nav-link">组织机构</a></li>
+                    <li><a href="websites.html" class="nav-link">常用网站</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="freshman.html" class="nav-link">新生指南</a>
+            </li>
+            <li class="nav-item">
+                <a href="info-service.html" class="nav-link">信息服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="life-service.html" class="nav-link">生活服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="undergraduate.html" class="nav-link active">本科生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="postgraduate.html" class="nav-link">研究生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="campus-culture.html" class="nav-link">校园文化</a>
+            </li>
+            <li class="nav-item">
+                <a href="personal-growth.html" class="nav-link">个人成长</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 右侧本科生学习内容区 -->
+    <div class="content">
+        <h1>本科生学习</h1>
+        <h2 id="course">选课指南</h2>
+        <ul>
+            <li>选课时间：每学期开学前1-2周，教务处会发布选课通知，分批次选课；</li>
+            <li>选课优先级：高年级＞低年级，专业课＞公共课，热门课程建议提前收藏；</li>
+            <li>选课系统：登录教务处官网，进入“教务管理系统”选课；</li>
+            <li>退课/改选：选课结束后1周内可退课，逾期需提交申请，经学院批准。</li>
+        </ul>
+
+        <h2 id="credit">学分与绩点</h2>
+        <ul>
+            <li>毕业要求：本科需修满160-180学分（不同专业略有差异），含必修课、选修课、实践学分；</li>
+            <li>绩点计算：绩点=（分数-50）/10（60分对应1.0，90分对应4.0），平均绩点（GPA）影响奖学金、保研；</li>
+            <li>补考/重修：不及格课程可参加补考，补考仍不及格需重修，重修需缴纳学费（按学分收费）。</li>
+        </ul>
+
+        <h2 id="exam">考试安排</h2>
+        <ul>
+            <li>考试时间：期末考试一般在每学期第18-20周，补考在开学后2周内；</li>
+            <li>考试纪律：严格遵守考场规则，作弊将取消成绩并给予纪律处分；</li>
+            <li>缓考：因病/事无法参加考试，需提前提交缓考申请，经学院批准后方可缓考。</li>
+        </ul>
+
+        <h2 id="resource">学习资源</h2>
+        <ul>
+            <li>图书馆：可借阅纸质图书，访问知网、万方、Web of Science等电子数据库；</li>
+            <li>自习室：主教学楼、图书馆、综合楼均有自习室，图书馆自习室需预约；</li>
+            <li>答疑辅导：各学院有专业课答疑时间，可咨询任课老师或助教；</li>
+            <li>竞赛资源：数学建模、电子设计、“挑战杯”等竞赛，学院会组织培训和报名。</li>
+        </ul>
+
+        <h2 id="exchange">交流与保研</h2>
+        <ul>
+            <li>交换生：学校与国内外多所高校有交换项目，每年3-4月申报，要求GPA≥3.0；</li>
+            <li>保研：GPA排名前10%-15%（不同专业）可保研，需通过推免面试；</li>
+            <li>出国/出境：国际交流处提供留学咨询，需准备语言成绩（托福/雅思）、GPA、推荐信。</li>
+        </ul>
+    </div>
+
+    <!-- 交互脚本（与首页一致） -->
+    <script>
+        function toggleSubmenu(element) {
+            const submenu = element.nextElementSibling;
+            submenu.classList.toggle('show');
+            document.querySelectorAll('.submenu.show').forEach(item => {
+                if (item !== submenu) item.classList.remove('show');
+            });
+        }
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.href === window.location.href) {
+                link.classList.add('active');
+                const parentSubmenu = link.closest('.submenu');
+                if (parentSubmenu) parentSubmenu.classList.add('show');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生活服务 - 大连理工大学自救手册</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { display: flex; font-family: "Microsoft Yahei", sans-serif; }
+        
+        /* 左侧导航栏样式（与首页一致） */
+        .sidebar {
+            width: 220px;
+            background: #f8f9fa;
+            padding: 20px 10px;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #e9ecef;
+        }
+        .sidebar .search-box {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .sidebar ul { list-style: none; }
+        .sidebar .nav-item { margin: 5px 0; }
+        .sidebar .nav-link {
+            display: block;
+            padding: 10px 15px;
+            color: #343a40;
+            text-decoration: none;
+            font-size: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .sidebar .nav-link:hover { background: #e9ecef; }
+        .sidebar .nav-link.active {
+            background: #007bff;
+            color: white;
+        }
+        .sidebar .submenu {
+            margin-left: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .sidebar .submenu.show { max-height: 500px; }
+        .sidebar .submenu .nav-link {
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #495057;
+        }
+        
+        /* 右侧内容区样式（与首页一致） */
+        .content {
+            flex: 1;
+            padding: 30px 50px;
+            overflow-y: auto;
+            height: 100vh;
+            background: #ffffff;
+        }
+        .content h1 { margin-bottom: 20px; color: #212529; }
+        .content h2 { margin: 20px 0 10px; color: #343a40; }
+        .content p { line-height: 1.8; color: #495057; margin-bottom: 15px; }
+        .content ul { margin: 10px 0 20px 20px; }
+        .content li { line-height: 1.7; color: #495057; margin-bottom: 8px; }
+        .content a { color: #007bff; text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <!-- 左侧导航栏（与首页一致） -->
+    <div class="sidebar">
+        <input type="text" class="search-box" placeholder="搜索手册内容...">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="SaverGuidance.html" class="nav-link">首页</a>
+            </li>
+            <li class="nav-item">
+                <a href="quick-nav.html" class="nav-link">快速导航</a>
+            </li>
+            <li class="nav-item">
+                <div class="nav-link" onclick="toggleSubmenu(this)">学校简介</div>
+                <ul class="submenu">
+                    <li><a href="organization.html" class="nav-link">组织机构</a></li>
+                    <li><a href="websites.html" class="nav-link">常用网站</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="freshman.html" class="nav-link">新生指南</a>
+            </li>
+            <li class="nav-item">
+                <a href="info-service.html" class="nav-link">信息服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="life-service.html" class="nav-link active">生活服务</a>
+            </li>
+            <li class="nav-item">
+                <a href="undergraduate.html" class="nav-link">本科生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="postgraduate.html" class="nav-link">研究生学习</a>
+            </li>
+            <li class="nav-item">
+                <a href="campus-culture.html" class="nav-link">校园文化</a>
+            </li>
+            <li class="nav-item">
+                <a href="personal-growth.html" class="nav-link">个人成长</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 右侧生活服务内容区 -->
+    <div class="content">
+        <h1>生活服务</h1>
+        <h2 id="canteen">食堂分布与就餐</h2>
+        <ul>
+            <li><strong>凌水校区</strong>：一食堂（中心食堂）、二食堂（沁园）、三食堂（北山）、四食堂（西山）、五食堂（开发区）；</li>
+            <li>支付方式：校园卡、支付宝/微信扫码（需绑定校园卡）；</li>
+            <li>就餐时间：早餐6:30-8:30，午餐11:00-13:00，晚餐17:00-19:00（部分窗口延长至21:00）；</li>
+            <li>特色窗口：各食堂有不同风味窗口（川菜、东北菜、面食、清真等）。</li>
+        </ul>
+
+        <h2 id="dorm">宿舍管理</h2>
+        <ul>
+            <li>门禁时间：周日至周四23:00关门，周五至周六23:30关门，晚归需登记；</li>
+            <li>水电缴费：宿舍电费可在后勤平台充值，水费免费，空调需单独缴费；</li>
+            <li>报修：宿舍设施损坏可通过后勤服务平台或宿舍楼下报修箱报修，24小时内处理；</li>
+            <li>违禁品：禁止使用大功率电器（如电煮锅、吹风机（功率＞800W）、电热毯等）。</li>
+        </ul>
+
+        <h2 id="card">校园卡服务</h2>
+        <ul>
+            <li>充值方式：食堂充值机、支付宝/微信小程序、校园卡服务中心；</li>
+            <li>挂失/补办：丢失后立即在微门户挂失，补办需到校园卡服务中心（综合楼1楼），工本费20元；</li>
+            <li>功能：就餐、门禁、图书馆借阅、洗澡、洗衣、打印等。</li>
+        </ul>
+
+        <h2 id="transport">校园交通</h2>
+        <ul>
+            <li>校内通勤：凌水校区有校园巴士（免费），往返各教学楼、宿舍楼；</li>
+            <li>校外交通：地铁1号线（大连理工大学站）、公交23/406/531/901路；</li>
+            <li>校车：凌水校区↔开发区校区↔盘锦校区，需提前预约，收费标准10-50元/次。</li>
+        </ul>
+
+        <h2 id="express">快递站点</h2>
+        <ul>
+            <li>凌水校区：西山快递站（圆通、中通、韵达）、北山快递站（顺丰、京东、EMS）；</li>
+            <li>取件时间：9:00-21:00，超时未取会被退回；</li>
+            <li>寄件：各快递站均可寄件，价格比校外略低。</li>
+        </ul>
+    </div>
+
+    <!-- 交互脚本（与首页一致） -->
+    <script>
+        function toggleSubmenu(element) {
+            const submenu = element.nextElementSibling;
+            submenu.classList.toggle('show');
+            document.querySelectorAll('.submenu.show').forEach(item => {
+                if (item !== submenu) item.classList.remove('show');
+            });
+        }
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.href === window.location.href) {
+                link.classList.add('active');
+                const parentSubmenu = link.closest('.submenu');
+                if (parentSubmenu) parentSubmenu.classList.add('show');
+            }
+        });
+    </script>
+</body>
+</html>
