@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>考研数学备考 | Math Exam Prep | 大学院入試数学</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: #f2f2f7;
+  color: #1d1d1f;
+  padding-bottom: 80px;
+}
+
+/* 语言切换 */
+.lang-switch {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+  display: flex;
+  gap: 10px;
+}
+.lang-btn {
+  padding: 8px 16px;
+  border-radius: 16px;
+  border: none;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  /* iOS 风格按钮过渡 */
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.lang-btn.active {
+  background: #007aff;
+  color: #fff;
+  transform: scale(1.03);
+}
+.lang-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* 头部 */
+.page-header {
+  text-align: center;
+  padding: 80px 20px 40px;
+  /* 语言切换淡入动画 */
+  transition: opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.page-header h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.page-header p {
+  font-size: 17px;
+  color: #8e8e93;
+}
+.jp-sub {
+  font-size: 14px;
+  color: #8e8e93;
+  margin-top: 4px;
+  display: block;
+}
+
+/* 标签栏 */
+.tab-nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 auto 50px;
+  flex-wrap: wrap;
+  padding: 0 20px;
+}
+.tab-nav button {
+  padding: 10px 24px;
+  border-radius: 20px;
+  border: none;
+  background: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  /* 苹果风格缓动 */
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.tab-nav button.active {
+  background: #007aff;
+  color: #fff;
+  transform: scale(1.05);
+}
+.tab-nav button:hover {
+  transform: translateY(-2px);
+}
+
+/* 内容容器 */
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+/* 核心：章节切换动画（iOS 淡入+缩放） */
+.section {
+  display: block;
+  opacity: 0;
+  transform: scale(0.96) translateY(10px);
+  transition: 
+    opacity 0.45s cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  left: 0;
+}
+.section.show {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: all;
+  position: relative;
+}
+
+/* 章节标题 */
+.sec-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  /* 标题淡入延迟 */
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.section.show .sec-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+.sec-title + .sec-title {
+  margin-top: 60px;
+}
+
+/* ====================== 左图右文 列表样式 ====================== */
+.list-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  /* 卡片入场动画（交错） */
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+/* 显示时依次淡入 */
+.section.show .list-item:nth-child(1) { transition-delay: 0.08s; }
+.section.show .list-item:nth-child(2) { transition-delay: 0.16s; }
+.section.show .list-item:nth-child(3) { transition-delay: 0.24s; }
+.section.show .list-item:nth-child(4) { transition-delay: 0.32s; }
+.section.show .list-item {
+  opacity: 1;
+  transform: translateX(0);
+}
+.list-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+.list-img {
+  width: 100px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+  flex-shrink: 0;
+  margin-right: 20px;
+}
+.list-info {
+  flex: 1;
+}
+.list-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.list-sub {
+  font-size: 14px;
+  color: #8e8e93;
+  line-height: 1.4;
+}
+.list-jp {
+  font-size: 12px;
+  color: #8e8e93;
+  margin-top: 4px;
+}
+
+/* ====================== 详情弹窗（macOS 弹簧弹出） ====================== */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.modal-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+.modal {
+  background: #fff;
+  border-radius: 20px;
+  max-width: 700px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  /* macOS 弹簧弹出动画 */
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.modal-overlay.show .modal {
+  opacity: 1;
+  transform: scale(1);
+}
+.modal-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.1);
+  display: grid;
+  place-items: center;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+.modal-close:hover {
+  background: rgba(0,0,0,0.15);
+}
+.modal-cover {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+}
+.modal-body {
+  padding: 30px;
+}
+.modal-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.modal-sub {
+  font-size: 15px;
+  color: #8e8e93;
+  margin-bottom: 20px;
+}
+.modal-desc {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.modal-desc-jp {
+  font-size: 14px;
+  color: #8e8e93;
+  line-height: 1.6;
+  padding-top: 10px;
+  border-top: 1px solid #f2f2f7;
+  margin-bottom: 30px;
+}
+.modal-link {
+  display: inline-block;
+  padding: 12px 24px;
+  background: #007aff;
+  color: #fff;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 40px;
+  transition: all 0.2s ease;
+}
+.modal-link:hover {
+  background: #0066cc;
+  transform: translateY(-1px);
+}
+
+/* 评论区 */
+.comments-title {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.comment {
+  padding: 16px 0;
+  border-bottom: 1px solid #f2f2f7;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.modal-overlay.show .comment:nth-child(1) { transition-delay: 0.1s; }
+.modal-overlay.show .comment:nth-child(2) { transition-delay: 0.2s; }
+.modal-overlay.show .comment {
+  opacity: 1;
+  transform: translateY(0);
+}
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.comment-name {
+  font-weight: 600;
+  font-size: 15px;
+}
+.comment-rating {
+  color: #ff9500;
+}
+.comment-text {
+  font-size: 14px;
+  line-height: 1.5;
+}
+.comment-from {
+  font-size: 12px;
+  color: #c7c7cc;
+  margin-top: 6px;
+}
+
+/* 语言切换内容淡入 */
+.zh, .en {
+  transition: all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* 响应式 */
+@media (max-width: 640px) {
+  .list-img {
+    width: 80px;
+    height: 110px;
+  }
+  .modal-cover {
+    height: 240px;
+  }
+  .modal-body {
+    padding: 20px;
+  }
+}
+</style>
+</head>
+<body class="zh">
+
+<!-- 语言切换 -->
+<div class="lang-switch">
+  <button class="lang-btn active" data-lang="zh">中文</button>
+  <button class="lang-btn" data-lang="en">English</button>
+</div>
+
+<!-- 头部 -->
+<div class="page-header">
+  <h1 class="zh">考研数学备考助手 <span class="jp-sub">大学院入試数学対策</span></h1>
+  <h1 class="en" style="display:none;">Math Exam Helper <span class="jp-sub">大学院入試数学対策</span></h1>
+  <p class="zh">数学一 / 数学二 / 数学三 <span class="jp-sub">数学Ⅰ/Ⅱ/Ⅲ</span></p>
+  <p class="en" style="display:none;">Math 1 / Math 2 / Math 3 <span class="jp-sub">数学Ⅰ/Ⅱ/Ⅲ</span></p>
+</div>
+
+<!-- 标签 -->
+<div class="tab-nav">
+  <button class="active" data-target="math1">
+    <span class="zh">数学一</span><span class="en" style="display:none;">Math 1</span> / 数学Ⅰ
+  </button>
+  <button data-target="math2">
+    <span class="zh">数学二</span><span class="en" style="display:none;">Math 2</span> / 数学Ⅱ
+  </button>
+  <button data-target="math3">
+    <span class="zh">数学三</span><span class="en" style="display:none;">Math 3</span> / 数学Ⅲ
+  </button>
+</div>
+
+<!-- 内容 -->
+<div class="container">
+  <!-- 数学一 -->
+  <section class="section show" id="math1">
+    <h2 class="sec-title zh">推荐教材 <span class="jp-sub">オススメ参考書</span></h2>
+    <h2 class="sec-title en" style="display:none;">Textbooks <span class="jp-sub">オススメ参考書</span></h2>
+
+    <div class="list-item"
+      data-title-zh="程潇宇考研数学大观园"
+      data-title-en="Linear Algebra Tongji 6th"
+      data-sub-zh="程潇宇的考研数学习题集"
+      data-sub-en="Standard Linear Algebra Book"
+      data-sub-jp="耐刷王のこの部分"
+      data-cover="dgy.png"
+      data-desc-zh="程潇宇的考研数学习题集"
+      data-desc-en="Covers all linear algebra exam points, clear explanation."
+      data-desc-jp="程潇宇の大学院入試数学演習問題集。"
+      data-url="https://paladiyu.com/">
+      <img class="list-img" src="dgy.png">
+      <div class="list-info">
+        <div class="list-title zh">程潇宇考研数学大观园</div>
+        <div class="list-title en" style="display:none;">Linear Algebra Tongji 6th</div>
+        <div class="list-sub zh">程潇宇的考研数学习题集</div>
+        <div class="list-sub en" style="display:none;">Standard Linear Algebra Book</div>
+        <div class="list-jp">程潇宇の大学院入試数学演習問題集</div>
+      </div>
+    </div>
+
+    <div class="list-item"
+      data-title-zh="高等数学 同济七版"
+      data-title-en="Advanced Mathematics Tongji 7th"
+      data-sub-zh="理工类核心教材"
+      data-sub-en="Core for Science & Engineering"
+      data-sub-jp="理工系必須教材"
+      data-cover="https://img3.doubanio.com/view/subject/s/public/s2768378.jpg"
+      data-desc-zh="经典高数教材，覆盖数一全部考点，讲解系统，例题经典，适合打基础。"
+      data-desc-en="Classic textbook covering all Math 1 contents, systematic and great for basics."
+      data-desc-jp="数学Ⅰの全範囲を網羅し、体系的に解説、基礎固めに最適。"
+      data-url="https://www.baidu.com/s?wd=同济七版高等数学">
+      <img class="list-img" src="https://img3.doubanio.com/view/subject/s/public/s2768378.jpg">
+      <div class="list-info">
+        <div class="list-title zh">高等数学 同济七版</div>
+        <div class="list-title en" style="display:none;">Advanced Mathematics Tongji 7th</div>
+        <div class="list-sub zh">理工类核心教材</div>
+        <div class="list-sub en" style="display:none;">Core for Science & Engineering</div>
+        <div class="list-jp">理工系必須教材</div>
+      </div>
+    </div>
+
+    <div class="list-item"
+      data-title-zh="线性代数 同济六版"
+      data-title-en="Linear Algebra Tongji 6th"
+      data-sub-zh="通用线代标准教材"
+      data-sub-en="Standard Linear Algebra Book"
+      data-sub-jp="線形代数標準教科書"
+      data-cover="https://img1.doubanio.com/view/subject/s/public/s2765261.jpg"
+      data-desc-zh="线代必考知识点全覆盖，矩阵、行列式、向量空间讲解清晰。"
+      data-desc-en="Covers all linear algebra exam points, clear explanation."
+      data-desc-jp="線形代数の全試験項目を網羅、行列・行列式など解説が分かりやすい。"
+      data-url="https://www.baidu.com/s?wd=同济六版线性代数">
+      <img class="list-img" src="https://img1.doubanio.com/view/subject/s/public/s2765261.jpg">
+      <div class="list-info">
+        <div class="list-title zh">线性代数 同济六版</div>
+        <div class="list-title en" style="display:none;">Linear Algebra Tongji 6th</div>
+        <div class="list-sub zh">通用线代标准教材</div>
+        <div class="list-sub en" style="display:none;">Standard Linear Algebra Book</div>
+        <div class="list-jp">線形代数標準教科書</div>
+      </div>
+    </div>
+
+    <h2 class="sec-title zh" style="margin-top:60px;">推荐网课 <span class="jp-sub">オススメ講義</span></h2>
+    <h2 class="sec-title en" style="display:none; margin-top:60px;">Courses <span class="jp-sub">オススメ講義</span></h2>
+
+    <div class="list-item"
+      data-title-zh="张宇高等数学基础班"
+      data-title-en="Zhang Yu Basic Math Course"
+      data-sub-zh="B站经典，入门友好"
+      data-sub-en="Bilibili Classic, Easy to Start"
+      data-sub-jp="B站で人気、入門に最適"
+      data-cover="https://i2.hdslb.com/bfs/archive/3e305f1670889c7c78b47d8e8d3e2f5a2e1c3b7a.jpg"
+      data-desc-zh="讲解风趣，知识点拆解细致，零基础也能跟上，适合数一全程使用。"
+      data-desc-en="Funny and clear, great for beginners of Math 1."
+      data-desc-jp="解説が分かりやすく、基礎ゼロでも安心して学べる。"
+      data-url="https://www.bilibili.com/video/BV1Eb411u7Fy">
+      <img class="list-img" src="https://i2.hdslb.com/bfs/archive/3e305f1670889c7c78b47d8e8d3e2f5a2e1c3b7a.jpg">
+      <div class="list-info">
+        <div class="list-title zh">张宇高等数学基础班</div>
+        <div class="list-title en" style="display:none;">Zhang Yu Basic Math Course</div>
+        <div class="list-sub zh">B站经典，入门友好</div>
+        <div class="list-sub en" style="display:none;">Bilibili Classic, Easy to Start</div>
+        <div class="list-jp">B站で人気、入門に最適</div>
+      </div>
+    </div>
+
+    <div class="list-item"
+      data-title-zh="程潇宇素人教師の数学大观"
+      data-title-en="Math Problem-solving Skills"
+      data-sub-zh="素人教師の数学大观"
+      data-sub-en="Skills for All Math Questions"
+      data-sub-jp="選択・記述問題のテクニック集"
+      data-cover="pldy.jpg"
+      data-desc-zh="涵盖选择填空大题解题套路，提速提分，适合数一二三通用。"
+      data-desc-en="Useful skills for all math problems, improves speed & score."
+      data-desc-jp="選択・空欄・記述問題のコツを網羅、点数アップに効果的。"
+      data-url="https://www.bilibili.com/video/BV1NKVpzREDV">
+      <img class="list-img" src="pldy.jpg">
+      <div class="list-info">
+        <div class="list-title zh">程潇宇素人教師の数学大观</div>
+        <div class="list-title en" style="display:none;">Math Problem-solving Skills</div>
+        <div class="list-sub zh">【bilbili】程潇宇</div>
+        <div class="list-sub en" style="display:none;">Skills for All Math Questions</div>
+        <div class="list-jp">選択・記述問題のテクニック集</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 数学二 -->
+  <section class="section" id="math2">
+    <h2 class="sec-title zh">推荐教材 <span class="jp-sub">オススメ参考書</span></h2>
+    <h2 class="sec-title en" style="display:none;">Textbooks <span class="jp-sub">オススメ参考書</span></h2>
+
+    <div class="list-item"
+      data-title-zh="高等数学 同济七版"
+      data-title-en="Advanced Mathematics Tongji 7th"
+      data-sub-zh="数二核心，高数占比78%"
+      data-sub-en="Math 2 Core, 78% Weight"
+      data-sub-jp="数学Ⅱの中心、微積分78%"
+      data-cover="https://img3.doubanio.com/view/subject/s/public/s2768378.jpg"
+      data-desc-zh="数二不考概率，高数比重极高，本书覆盖全部高数考点。"
+      data-desc-en="Math 2 has no probability, this book covers all high math contents."
+      data-desc-jp="数学Ⅱは確率がなく、微積分が中心。本書で完全網羅。"
+      data-url="https://www.baidu.com/s?wd=同济七版高等数学">
+      <img class="list-img" src="https://img3.doubanio.com/view/subject/s/public/s2768378.jpg">
+      <div class="list-info">
+        <div class="list-title zh">高等数学 同济七版</div>
+        <div class="list-title en" style="display:none;">Advanced Mathematics Tongji 7th</div>
+        <div class="list-sub zh">数二核心，高数占比78%</div>
+        <div class="list-sub en" style="display:none;">Math 2 Core, 78% Weight</div>
+        <div class="list-jp">数学Ⅱの中心、微積分78%</div>
+      </div>
+    </div>
+
+    <h2 class="sec-title zh" style="margin-top:60px;">推荐网课 <span class="jp-sub">オススメ講義</span></h2>
+    <h2 class="sec-title en" style="display:none; margin-top:60px;">Courses <span class="jp-sub">オススメ講義</span></h2>
+
+    <div class="list-item"
+      data-title-zh="武忠祥高数精讲"
+      data-title-en="Wu Zhongxiang Math Course"
+      data-sub-zh="数二专用，重计算"
+      data-sub-en="For Math 2, Focus on Calculation"
+      data-sub-jp="数学Ⅱ専用、計算力重視"
+      data-cover="https://i0.hdslb.com/bfs/archive/5f6d7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4.jpg"
+      data-desc-zh="针对数二考法，强化计算能力与题型总结，提分明显。"
+      data-desc-en="For Math 2, strengthens calculation & question types."
+      data-desc-jp="数学Ⅱ向け、計算力と問題パターンを強化。"
+      data-url="https://www.bilibili.com/video/BV17Q4y1D7jJ">
+      <img class="list-img" src="https://i0.hdslb.com/bfs/archive/5f6d7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4.jpg">
+      <div class="list-info">
+        <div class="list-title zh">武忠祥高数精讲</div>
+        <div class="list-title en" style="display:none;">Wu Zhongxiang Math Course</div>
+        <div class="list-sub zh">数二专用，重计算</div>
+        <div class="list-sub en" style="display:none;">For Math 2, Focus on Calculation</div>
+        <div class="list-jp">数学Ⅱ専用、計算力重視</div>
+      </div>
+    </div>
+
+    <div class="list-item"
+      data-title-zh="考研数学通用解题技巧"
+      data-title-en="Math Problem-solving Skills"
+      data-sub-zh="数二题型技巧合集"
+      data-sub-en="Math 2 Question Skills"
+      data-sub-jp="数学Ⅱ問題テクニック"
+      data-cover="https://i0.hdslb.com/bfs/archive/8a9c7d6f5e4b3a2b1c0d9e8f7a6b5c4d3e2f1a0b.jpg"
+      data-desc-zh="专门适配数二，高数解题技巧集中讲解，提升速度。"
+      data-desc-en="For Math 2, improves speed & accuracy greatly."
+      data-desc-jp="数学Ⅱに最適化、解答スピードが上がる。"
+      data-url="https://www.bilibili.com/video/BV1NKVpzREDV">
+      <img class="list-img" src="https://i0.hdslb.com/bfs/archive/8a9c7d6f5e4b3a2b1c0d9e8f7a6b5c4d3e2f1a0b.jpg">
+      <div class="list-info">
+        <div class="list-title zh">考研数学通用解题技巧</div>
+        <div class="list-title en" style="display:none;">Math Problem-solving Skills</div>
+        <div class="list-sub zh">数二题型技巧合集</div>
+        <div class="list-sub en" style="display:none;">Math 2 Question Skills</div>
+        <div class="list-jp">数学Ⅱ問題テクニック</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 数学三 -->
+  <section class="section" id="math3">
+    <h2 class="sec-title zh">推荐教材 <span class="jp-sub">オススメ参考書</span></h2>
+    <h2 class="sec-title en" style="display:none;">Textbooks <span class="jp-sub">オススメ参考書</span></h2>
+
+    <div class="list-item"
+      data-title-zh="概率论与数理统计 浙大五版"
+      data-title-en="Probability ZJU 5th"
+      data-sub-zh="经管类数三必备"
+      data-sub-en="Must for Math 3 & Econ"
+      data-sub-jp="経済系数学Ⅲ必須"
+      data-cover="https://img2.doubanio.com/view/subject/s/public/s29855916.jpg"
+      data-desc-zh="数三概率统计核心教材，贴合经济应用，例题经典。"
+      data-desc-en="Core for Math 3, fits economic applications."
+      data-desc-jp="数学Ⅲ確率統計の核心、経済応用に対応。"
+      data-url="https://www.baidu.com/s?wd=浙大五版概率论">
+      <img class="list-img" src="https://img2.doubanio.com/view/subject/s/public/s29855916.jpg">
+      <div class="list-info">
+        <div class="list-title zh">概率论 浙大五版</div>
+        <div class="list-title en" style="display:none;">Probability ZJU 5th</div>
+        <div class="list-sub zh">经管类数三必备</div>
+        <div class="list-sub en" style="display:none;">Must for Math 3 & Econ</div>
+        <div class="list-jp">経済系数学Ⅲ必須</div>
+      </div>
+    </div>
+
+    <h2 class="sec-title zh" style="margin-top:60px;">推荐网课 <span class="jp-sub">オススメ講義</span></h2>
+    <h2 class="sec-title en" style="display:none; margin-top:60px;">Courses <span class="jp-sub">オススメ講義</span></h2>
+
+    <div class="list-item"
+      data-title-zh="余丙森概率论精讲"
+      data-title-en="Yu Bingsen Probability Course"
+      data-sub-zh="数三专用，经济向"
+      data-sub-en="For Math 3, Economy Focus"
+      data-sub-jp="数学Ⅲ専用、経済向け"
+      data-cover="https://i0.hdslb.com/bfs/archive/7e3d5c8b8a7c8d9e0f1a2b3c4d5e6f7a8b9c0d1.jpg"
+      data-desc-zh="适合数三，概率统计结合经济案例，易懂好用。"
+      data-desc-en="For Math 3, uses economy examples, easy to learn."
+      data-desc-jp="数学Ⅲ向け、経済例を用いて分かりやすい。"
+      data-url="https://www.bilibili.com/video/BV1W7411E7ZJ">
+      <img class="list-img" src="https://i0.hdslb.com/bfs/archive/7e3d5c8b8a7c8d9e0f1a2b3c4d5e6f7a8b9c0d1.jpg">
+      <div class="list-info">
+        <div class="list-title zh">余丙森概率论精讲</div>
+        <div class="list-title en" style="display:none;">Yu Bingsen Probability Course</div>
+        <div class="list-sub zh">数三专用，经济向</div>
+        <div class="list-sub en" style="display:none;">For Math 3, Economy Focus</div>
+        <div class="list-jp">数学Ⅲ専用、経済向け</div>
+      </div>
+    </div>
+
+    <div class="list-item"
+      data-title-zh="考研数学通用解题技巧"
+      data-title-en="Math Problem-solving Skills"
+      data-sub-zh="数三经济题型技巧"
+      data-sub-en="Math 3 Economy Skills"
+      data-sub-jp="数学Ⅲ経済問題テク"
+      data-cover="https://i0.hdslb.com/bfs/archive/8a9c7d6f5e4b3a2b1c0d9e8f7a6b5c4d3e2f1a0b.jpg"
+      data-desc-zh="针对数三经济类题型技巧，快速掌握解题思路。"
+      data-desc-en="For Math 3 economic questions, very efficient."
+      data-desc-jp="数学Ⅲの経済問題に特化、効率的に学べる。"
+      data-url="https://www.bilibili.com/video/BV1NKVpzREDV">
+      <img class="list-img" src="https://i0.hdslb.com/bfs/archive/8a9c7d6f5e4b3a2b1c0d9e8f7a6b5c4d3e2f1a0b.jpg">
+      <div class="list-info">
+        <div class="list-title zh">考研数学通用解题技巧</div>
+        <div class="list-title en" style="display:none;">Math Problem-solving Skills</div>
+        <div class="list-sub zh">数三经济题型技巧</div>
+        <div class="list-sub en" style="display:none;">Math 3 Economy Skills</div>
+        <div class="list-jp">数学Ⅲ経済問題テク</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- 弹窗 -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <img class="modal-cover" id="modalImg">
+    <div class="modal-body">
+      <h2 class="modal-title zh" id="mTitleZh"></h2>
+      <h2 class="modal-title en" id="mTitleEn" style="display:none;"></h2>
+      <p class="modal-sub zh" id="mSubZh"></p>
+      <p class="modal-sub en" id="mSubEn" style="display:none;"></p>
+      <div class="modal-desc zh" id="mDescZh"></div>
+      <div class="modal-desc en" id="mDescEn" style="display:none;"></div>
+      <div class="modal-desc-jp" id="mDescJp"></div>
+      <a class="modal-link" id="mLink" target="_blank">
+        <span class="zh">打开查看</span>
+        <span class="en" style="display:none;">Open</span> / 開く
+      </a>
+
+      <h3 class="comments-title zh">用户评论 <span class="jp-sub">ユーザーコメント</span></h3>
+      <h3 class="comments-title en" style="display:none;">Reviews <span class="jp-sub">ユーザーコメント</span></h3>
+      <div class="comment">
+        <div class="comment-header">
+          <div class="comment-name zh">一战上岸学长</div>
+          <div class="comment-name en" style="display:none;">Past Student</div>
+          <div class="comment-rating">★★★★★</div>
+        </div>
+        <div class="comment-text zh">这套教材配合网课效果极好，基础扎实后刷题正确率明显提升。</div>
+        <div class="comment-text en" style="display:none;">Textbook + course works great, basics are solid.</div>
+      </div>
+      <div class="comment">
+        <div class="comment-header">
+          <div class="comment-name zh">26考研考生</div>
+          <div class="comment-name en" style="display:none;">2026 Candidate</div>
+          <div class="comment-rating">★★★★☆</div>
+        </div>
+        <div class="comment-text zh">技巧课非常实用，选择填空速度快了很多。</div>
+        <div class="comment-text en" style="display:none;">Skill course is very useful for choices.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// 语言切换（带淡入淡出）
+const langBtns = document.querySelectorAll('.lang-btn');
+langBtns.forEach(b=>{
+  b.addEventListener('click',()=>{
+    langBtns.forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const lang = b.dataset.lang;
+    document.body.className = lang;
+
+    // 头部淡入淡出
+    const header = document.querySelector('.page-header');
+    header.style.opacity = 0;
+    setTimeout(()=>{
+      document.querySelectorAll('.zh,.en').forEach(e=>{
+        e.style.display = e.classList.contains(lang) ? 'block' : 'none';
+      });
+      header.style.opacity = 1;
+    }, 300);
+  });
+});
+
+// 标签切换（iOS 淡入+缩放）
+const tabs = document.querySelectorAll('.tab-nav button');
+tabs.forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    tabs.forEach(x=>x.classList.remove('active'));
+    tab.classList.add('active');
+    const target = tab.dataset.target;
+    
+    // 淡出当前
+    const current = document.querySelector('.section.show');
+    current.classList.remove('show');
+    
+    // 淡入目标
+    setTimeout(()=>{
+      document.querySelectorAll('.section').forEach(s=>s.classList.remove('show'));
+      document.getElementById(target).classList.add('show');
+    }, 400);
+  });
+});
+
+// 打开弹窗
+document.querySelectorAll('.list-item').forEach(item=>{
+  item.addEventListener('click',()=>{
+    const d = item.dataset;
+    document.getElementById('mTitleZh').textContent = d.titleZh;
+    document.getElementById('mTitleEn').textContent = d.titleEn;
+    document.getElementById('mSubZh').textContent = d.subZh;
+    document.getElementById('mSubEn').textContent = d.subEn;
+    document.getElementById('mDescZh').textContent = d.descZh;
+    document.getElementById('mDescEn').textContent = d.descEn;
+    document.getElementById('mDescJp').textContent = d.descJp;
+    document.getElementById('modalImg').src = d.cover;
+    document.getElementById('mLink').href = d.url;
+    document.getElementById('modal').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+// 关闭弹窗
+function closeModal(){
+  document.getElementById('modal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+document.getElementById('modal').addEventListener('click',e=>{
+  if(e.target===document.getElementById('modal')) closeModal();
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') closeModal();
+});
+</script>
+</body>
+</html>
