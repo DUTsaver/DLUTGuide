@@ -236,6 +236,41 @@
             margin-left: 40px;
         }
 
+        /* 搜索框样式 */
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 48px;
+            padding: 0 20px;
+            border-radius: 24px;
+            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: width 0.3s ease;
+            opacity: 0;
+        }
+
+        .search-input.active {
+            width: 250px;
+            opacity: 1;
+            padding-right: 50px;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
         .search-btn {
             width: 48px;
             height: 48px;
@@ -247,6 +282,27 @@
             color: #fff;
             border: none;
             cursor: pointer;
+            z-index: 10;
+        }
+
+        /* 门户图标样式 */
+        .portal-btn {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .portal-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
         }
 
         .icon-svg {
@@ -255,6 +311,51 @@
             fill: none;
             stroke: currentColor;
             stroke-width: 2.5;
+        }
+
+        /* 搜索结果样式 */
+        .search-results {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            padding: 20px var(--page-padding);
+            max-height: 80vh;
+            overflow-y: auto;
+            z-index: 999;
+            display: none;
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        .result-item {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .result-text {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .no-results {
+            padding: 20px 0;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
         }
 
         /* =================================================================
@@ -522,6 +623,16 @@
             margin-bottom: 30px;
         }
 
+        .footer-col a {
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-col a:hover {
+            color: #fff;
+        }
+
         .footer-bottom {
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-top: 40px;
@@ -545,25 +656,43 @@
                     <div class="nav-link has-dropdown">
                         数学复习资料 <span class="caret">▼</span>
                         <div class="dropdown-menu">
-                            <a href="#">数学分析</a>
-                            <a href="#">高等代数</a>
-                            <a href="#">复变函数</a>
+                            <a href="math.html#analysis">数学分析</a>
+                            <a href="math.html#algebra">高等代数</a>
+                            <a href="math.html#complex">复变函数</a>
                         </div>
                     </div>
-                    <a href="#" class="nav-link">大连理工大学自救指南</a>
-                    <a href="#" class="nav-link">物理实验指导</a>
-                    <a href="#" class="nav-link">化学公式大全</a>
-                    <a href="#" class="nav-link">历史时间线</a>
-                    <a href="#" class="nav-link">政治要点总结</a>
+                    <a href="自救指南/SaverGuidance.html" class="nav-link">大连理工大学自救指南</a>
+                    <a href="physics.html" class="nav-link">物理实验指导</a>
+                    <a href="history.html" class="nav-link">历史时间线</a>
+                    <a href="politics.html" class="nav-link">政治要点总结</a>
+                    <a href="" class="nav-link">    </a>
+                    <a href="" class="nav-link"> </a>
                 </nav>
                 <div class="tools">
-                    <button class="search-btn"><svg class="icon-svg" viewBox="0 0 24 24">
-                            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg></button>
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="搜索页面内容...">
+                        <button class="search-btn"><svg class="icon-svg" viewBox="0 0 24 24">
+                                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg></button>
+                    </div>
+                    <!-- 大连理工大学门户跳转按钮 -->
+                    <a href="https://sso.dlut.edu.cn/login" target="_blank" class="portal-btn" title="大连理工大学门户网站">
+                        <svg class="icon-svg" viewBox="0 0 24 24">
+                            <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                            <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                            <path d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-8.16 3.578a12.22 12.22 0 01-.665-6.479L12 8l9 5-6.16 3.422a12.083 12.083 0 01-.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998z"></path>
+                        </svg>
+                    </a>
                 </div>
             </div>
         </div>
     </header>
+
+    <!-- 搜索结果容器 -->
+    <div class="search-results" id="searchResults">
+        <!-- 搜索结果会通过JS动态生成 -->
+    </div>
 
     <section class="hero">
         <div class="hero-slider">
@@ -616,7 +745,7 @@
                     </div>
                 </a>
 
-                <a href="#" class="program-card reveal delay-200">
+                <a href="physics.html" class="program-card reveal delay-200">
                     <img src="Index-Pictures/Part-3.jpg" alt="物理实验">
                     <div class="card-icon-area">⚗️</div>
                     <div class="card-overlay">
@@ -626,7 +755,7 @@
                 </a>
 
                 <a href="EnglishIndex.html" class="program-card reveal delay-300">
-                    <img src="Index-Pictures/Part-4.jpg" alt="化学公式">
+                    <img src="Index-Pictures/Part-4.jpg" alt="英语">
                     <div class="card-icon-area">🤐</div>
                     <div class="card-overlay">
                         <h3 class="program-name">英语</h3>
@@ -634,7 +763,7 @@
                     </div>
                 </a>
 
-                <a href="#" class="program-card reveal delay-400">
+                <a href="history.html" class="program-card reveal delay-400">
                     <img src="Index-Pictures/Part-5.jpg" alt="历史时间线">
                     <div class="card-icon-area">🗓️</div>
                     <div class="card-overlay">
@@ -643,7 +772,7 @@
                     </div>
                 </a>
 
-                <a href="#" class="program-card reveal delay-500">
+                <a href="politics.html" class="program-card reveal delay-500">
                     <img src="Index-Pictures/Part-6.jpg" alt="政治要点">
                     <div class="card-icon-area">🏛️</div>
                     <div class="card-overlay">
@@ -666,14 +795,14 @@
                 </div>
                 <div class="footer-col reveal delay-100">
                     <h4>快速链接</h4>
-                    <p>图书馆</p>
-                    <p>教务处</p>
-                    <p>校园地图</p>
+                    <a href="http://lib.dlut.edu.cn/" target="_blank">图书馆</a>
+                    <a href="http://jwc.dlut.edu.cn/" target="_blank">教务处</a>
+                    <a href="https://map.dlut.edu.cn/" target="_blank">校园地图</a>
                 </div>
                 <div class="footer-col reveal delay-200">
                     <h4>关注大工</h4>
-                    <p>微信公众号</p>
-                    <p>微博</p>
+                    <a href="https://mp.weixin.qq.com/s?__biz=MzA5ODA2NTcxNQ==" target="_blank">微信公众号</a>
+                    <a href="https://weibo.com/daliangongda" target="_blank">微博</a>
                 </div>
             </div>
             <div class="footer-bottom reveal delay-300">
@@ -732,6 +861,109 @@
             });
 
             startTimer(); // 启动自动轮播
+
+            // 3. 搜索功能实现
+            const searchBtn = document.querySelector('.search-btn');
+            const searchInput = document.querySelector('.search-input');
+            const searchResults = document.getElementById('searchResults');
+            
+            // 点击搜索按钮显示/隐藏搜索框
+            searchBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                searchInput.classList.toggle('active');
+                if (searchInput.classList.contains('active')) {
+                    searchInput.focus();
+                } else {
+                    searchInput.value = '';
+                    searchResults.classList.remove('active');
+                }
+            });
+
+            // 点击页面其他地方关闭搜索框
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.search-container')) {
+                    searchInput.classList.remove('active');
+                    searchResults.classList.remove('active');
+                }
+            });
+
+            // 搜索框输入处理
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.trim().toLowerCase();
+                searchResults.innerHTML = '';
+                
+                if (searchTerm.length < 2) {
+                    searchResults.classList.remove('active');
+                    return;
+                }
+
+                // 获取页面中可搜索的内容
+                const searchableElements = [
+                    ...document.querySelectorAll('h1, h2, h3, p, .nav-link, .program-name, .program-desc')
+                ];
+
+                const matches = [];
+
+                // 遍历所有可搜索元素
+                searchableElements.forEach(element => {
+                    const text = element.textContent.trim().toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        // 高亮匹配的文本
+                        const highlightedText = element.textContent.replace(
+                            new RegExp(searchTerm, 'gi'),
+                            match => `<mark>${match}</mark>`
+                        );
+
+                        // 获取跳转链接
+                        let href = '#';
+                        if (element.closest('a')) {
+                            href = element.closest('a').href;
+                        } else if (element.id) {
+                            href = `#${element.id}`;
+                        } else if (element.closest('#programs')) {
+                            href = '#programs';
+                        }
+
+                        matches.push({
+                            title: element.tagName === 'P' ? '相关内容' : element.textContent,
+                            text: highlightedText,
+                            href: href
+                        });
+                    }
+                });
+
+                // 显示搜索结果
+                if (matches.length > 0) {
+                    matches.forEach(match => {
+                        const resultItem = document.createElement('div');
+                        resultItem.className = 'result-item';
+                        resultItem.innerHTML = `
+                            <h3 class="result-title"><a href="${match.href}" style="color: #fff;">${match.title}</a></h3>
+                            <p class="result-text">${match.text}</p>
+                        `;
+                        searchResults.appendChild(resultItem);
+                    });
+                } else {
+                    const noResults = document.createElement('div');
+                    noResults.className = 'no-results';
+                    noResults.textContent = `未找到包含"${searchTerm}"的内容`;
+                    searchResults.appendChild(noResults);
+                }
+
+                searchResults.classList.add('active');
+            });
+
+            // 按回车键搜索
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    // 自动点击第一个搜索结果
+                    const firstResult = searchResults.querySelector('.result-title a');
+                    if (firstResult) {
+                        firstResult.click();
+                    }
+                }
+            });
         });
     </script>
 </body>
