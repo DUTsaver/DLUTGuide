@@ -192,7 +192,7 @@
             padding: 16px;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
-            padding-bottom: 40px;
+            padding-bottom: 100px;
         }
 
         /* 页面标题 */
@@ -521,6 +521,90 @@
             color: #16a34a;
         }
 
+       
+        /* ========== 每20个单词庆祝特效 ========== */
+        .celebration-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .celebration-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .celebration-modal {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            padding: 30px 25px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+            transform: scale(0.8) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-width: 320px;
+            width: 90%;
+        }
+        .celebration-overlay.show .celebration-modal {
+            transform: scale(1) translateY(0);
+        }
+        .celebration-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+            animation: bounce 1s infinite;
+        }
+        .celebration-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .celebration-text {
+            font-size: 15px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        .celebration-btn {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .celebration-btn:active {
+            transform: scale(0.95);
+            background: rgba(255,255,255,0.3);
+        }
+        /* 星星/烟花动画 */
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #fbbf24;
+            border-radius: 50%;
+            animation: firework 1.5s linear forwards;
+            z-index: 10001;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        @keyframes firework {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0) translateY(-50px); opacity: 0; }
+        }
+
         /* 滚动条优化 */
         ::-webkit-scrollbar {
             width: 0;
@@ -589,6 +673,28 @@
                     <div class="part-item" data-part="b_7">补充 Part 7</div>
                     <div class="part-item" data-part="b_8">补充 Part 8</div>
                     <div class="part-item" data-part="b_9">补充 Part 9</div>
+                    <div class="part-item" data-part="b_10">补充 Part 10</div>
+                    <div class="part-item" data-part="b_11">补充 Part 11</div>
+                    <div class="part-item" data-part="b_12">补充 Part 12</div>
+                    <div class="part-item" data-part="b_13">补充 Part 13</div>
+                    <div class="part-item" data-part="b_14">补充 Part 14</div>
+                    <div class="part-item" data-part="b_15">补充 Part 15</div>
+                    <div class="part-item" data-part="b_16">补充 Part 16</div>
+                    <div class="part-item" data-part="b_17">补充 Part 17</div>
+                    <div class="part-item" data-part="b_18">补充 Part 18</div>
+                    <div class="part-item" data-part="b_19">补充 Part 19</div>
+                    <div class="part-item" data-part="b_20">补充 Part 20</div>
+                    <div class="part-item" data-part="b_21">补充 Part 21</div>
+                    <div class="part-item" data-part="b_22">补充 Part 22</div>
+                    <div class="part-item" data-part="b_23">补充 Part 23</div>
+                    <div class="part-item" data-part="b_24">补充 Part 24</div>
+                    <div class="part-item" data-part="b_25">补充 Part 25</div>
+                    <div class="part-item" data-part="b_26">补充 Part 26</div>
+                    <div class="part-item" data-part="b_27">补充 Part 27</div>
+                    <div class="part-item" data-part="b_27">补充 Part 28</div>
+                    <div class="part-item" data-part="b_29">补充 Part 29</div>
+                    <div class="part-item" data-part="b_30">补充 Part 30</div>
+                    <div class="part-item" data-part="56 单词背诵循环完成！当前软件版本Ver 0.1">当前版本 Ver 0.1</div>
                 </div>
 
                 <div class="part-group">
@@ -654,11 +760,17 @@
             <a href="postgraduate.html" class="back-btn">← 返回主页</a>
         </main>
     </div>
-    <!-- ========== 底部固定下载APK按钮 ========== -->
-    <div class="apk-download-bar">
-        <a href="wordscard.apk" class="download-btn" download>
-            📥 下载Android APP <span>(离线使用)</span>
-        </a>
+
+    
+
+    <!-- ========== 20个单词庆祝弹窗 ========== -->
+    <div class="celebration-overlay" id="celebrationOverlay">
+        <div class="celebration-modal">
+            <div class="celebration-icon">🎉</div>
+            <h3 class="celebration-title">太棒了！</h3>
+            <p class="celebration-text" id="celebrationText">你已经掌握了 20 个新单词，继续加油！</p>
+            <button class="celebration-btn" id="closeCelebration">继续背词</button>
+        </div>
     </div>
 
     <!-- 学习统计弹窗 -->
@@ -680,7 +792,7 @@
 
     <script>
         // 单词数据
-        const fullVocabData = [ // Day 1
+         const fullVocabData = [ // Day 1
             // part1 完整单词列表
   { id: 1, part: "1", word: "radiate", phonetic: "['reidieit]", meaning: "发出,发射出(光、热等),辐射,发射；发散,显露出" },
   { id: 2, part: "1", word: "radiant", phonetic: "['reidiənt]", meaning: "发光的,辐射的,照耀的；容光焕发的；满面春风的,极漂亮的" },
@@ -750,71 +862,7 @@
   { id: 66, part: "1", word: "prove", phonetic: "[pruːv]", meaning: "证明,证实；检验,考验,鉴定；结果是,表明是；展现,显示(自己的才能)" },
   { id: 67, part: "1", word: "provide", phonetic: "[prə'vaɪd]", meaning: "提供,供给,给予；(法律或协议)规定" },
   { id: 68, part: "1", word: "provided", phonetic: "[prə'vaɪdɪd]", meaning: "倘若,只要,假如,在……条件下" },
-  { id: 69, part: "1", word: "mediate", phonetic: "['miːdieɪt]", meaning: "调停,调解,斡旋；为解决分歧找到(方法),促成(协议)；(常用被动态)影响……的发生,使……可能发生" },
-  { id: 70, part: "1", word: "meditation", phonetic: "[.medɪ'teɪʃn]", meaning: "沉思,冥想；深思熟虑,苦思冥想" },
-  { id: 71, part: "1", word: "medium", phonetic: "['miːdiəm]", meaning: "①n. (pl. media,mediums)中间,中庸；媒介(物),介质,媒体；传导体；手段,工具,方法 ②adj. 中等的,中号的" },
-  { id: 72, part: "1", word: "media", phonetic: "['miːdiə]", meaning: "[the]媒体,传媒" },
-  { id: 73, part: "1", word: "elaborate", phonetic: "①[ɪ'læbərət] ②[ɪ'læbəreɪt]", meaning: "①adj. 精心计划(或制作)的,详尽的,复杂的 ②v. 精心制作；(on,upon)详述(计划、说明)" },
-  { id: 74, part: "1", word: "elegant", phonetic: "['elɪgənt]", meaning: "优雅的,优美的,精致的；简练的,简洁的" },
-  { id: 75, part: "1", word: "element", phonetic: "['elɪmənt]", meaning: "元素,要素；组成部分,基本部分；有点,有些,少量；(学科的)基本原理,基础,纲要；(尤指动物的)自然环境,适宜的环境" },
-  { id: 76, part: "1", word: "elementary", phonetic: "[.elɪ'mentri]", meaning: "初等的,基本的；简单的,容易的" },
-  { id: 77, part: "1", word: "eliminate", phonetic: "[ɪ'lɪmɪneɪt]", meaning: "排除,消除；(比赛中)淘汰；消灭(尤指敌人或对手)" },
-  { id: 78, part: "1", word: "abolish", phonetic: "[ə'bɒlɪʃ]", meaning: "废止,废除(法律、制度、习俗等)" },
-  { id: 79, part: "1", word: "absence", phonetic: "['æbsəns]", meaning: "(from)缺勤,缺席,不在场；缺乏,没有" },
-  { id: 80, part: "1", word: "absent", phonetic: "['æbsənt]", meaning: "不在场的,缺席的；漫不经心的,茫然的" },
-  { id: 81, part: "1", word: "abroad", phonetic: "[ə'brɔːd]", meaning: "到国外,在国外；广为流传" },
-  { id: 82, part: "1", word: "absolute", phonetic: "['æbsəluːt]", meaning: "纯粹的,完全的,十足的,绝对的；不受任何限制(或约束)的；无疑的,肯定的,确实的" },
-  { id: 83, part: "1", word: "absorb", phonetic: "[əb'sɔːb]", meaning: "吸引……的注意；占去(时间、注意力等)；承受,忍受；吸进,吸收(液体、气体等)" },
-  { id: 84, part: "1", word: "abstract", phonetic: "①②['æbstrækt] ③[æb'strækt]", meaning: "①adj. 抽象的 ②n. (书、文、案情等的)摘要,梗概 ③vt. 提取,抽取" },
-  { id: 85, part: "1", word: "ban", phonetic: "[bæn]", meaning: "①vt. (官方明令)禁止,取缔 ②n. 禁止,禁令" },
-  { id: 86, part: "1", word: "bar", phonetic: "[bɑː(r)]", meaning: "①n. 条,块,杆,棒；酒吧,酒柜 ②vt. 闩(门、窗等)；禁闭,封锁,禁止" },
-  { id: 87, part: "1", word: "bare", phonetic: "[beə(r)]", meaning: "赤裸的,光秃的；基本的,微小的；仅仅的,光是的(=mere)" },
-  { id: 88, part: "1", word: "barely", phonetic: "['beəli]", meaning: "赤裸裸地,无遮蔽地；空空地；仅仅,勉强；几乎不" },
-  { id: 89, part: "1", word: "bargain", phonetic: "['bɑːgən]", meaning: "①n. 廉价货；交易；契约,合同 ②v. (for/over/about)议价(讨价还价)；成交" },
-  { id: 90, part: "1", word: "capable", phonetic: "['keɪpəbl]", meaning: "有能力的,能胜任的" },
-  { id: 91, part: "1", word: "capacity", phonetic: "[kə'pæsəti]", meaning: "才能,能力；生产力；接受能力；容量,容积" },
-  { id: 92, part: "1", word: "capital", phonetic: "['kæpɪtl]", meaning: "①n. 首都,首府；大写字母；资本,资金 ②adj. 首位的,最重要的；基本的；应处死刑的" },
-  { id: 93, part: "1", word: "captive", phonetic: "['kæptɪv]", meaning: "①adj. 被俘的,被监禁的 ②n. 俘虏,囚徒,战俘" },
-  { id: 94, part: "1", word: "capture", phonetic: "['kæptʃə(r)]", meaning: "①vt. 俘虏,捕获；夺得,攻占 ②n. 俘虏,捕获(物)" },
-  { id: 95, part: "1", word: "career", phonetic: "[kə'rɪə(r)]", meaning: "①n. 生涯,经历；职业 ②adj. 职业的" },
-  { id: 96, part: "1", word: "careful", phonetic: "['keəfl]", meaning: "小心的,仔细的；细致的,精心的" },
-  { id: 97, part: "1", word: "case", phonetic: "[keɪs]", meaning: "事例,事实,事情；病例；案件" },
-  { id: 98, part: "1", word: "cast", phonetic: "[kɑːst]", meaning: "①v. 投,扔,抛,撒,掷；分配……扮演某角色,为(戏剧、角色)选派演员；铸造,浇铸 ②n. 演员表,一组演员,角色分派" },
-  { id: 99, part: "1", word: "casual", phonetic: "['kæʒuəl]", meaning: "偶然的,无计划的,随便的,非正式的" },
-  { id: 100, part: "1", word: "casualty", phonetic: "['kæʒuəlti]", meaning: "(战争或事故中的)伤亡者,牺牲品" },
-  { id: 101, part: "1", word: "catch", phonetic: "[kætʃ]", meaning: "(caught,caught)捉住,捕获；赶上,搭上(车、船等)；感染,得病；理解,听懂" },
-  { id: 102, part: "1", word: "category", phonetic: "['kætəgəri]", meaning: "(人或事物的)类别,种类；类目" },
-  { id: 103, part: "1", word: "cater", phonetic: "['keɪtə(r)]", meaning: "(for)提供饮食,承办酒席；(for,to)提供节目,满足需要,迎合" },
-  { id: 104, part: "1", word: "cause", phonetic: "[kɔːz]", meaning: "①vt. 导致,引起 ②n. 原因,起因；理由,缘故；事业,(奋斗的)目标" },
-  { id: 105, part: "1", word: "caution", phonetic: "['kɔːʃn]", meaning: "①n. 谨慎,慎重；警告 ②vt. 警告,提醒" },
-  { id: 106, part: "1", word: "cautious", phonetic: "['kɔːʃəs]", meaning: "(of)小心的,谨慎的" },
-  { id: 107, part: "1", word: "cease", phonetic: "[siːs]", meaning: "停止,终止,结束" },
-  { id: 108, part: "1", word: "celebrate", phonetic: "['selɪbreɪt]", meaning: "庆祝；赞美" },
-  { id: 109, part: "1", word: "celebrity", phonetic: "[sə'lebrəti]", meaning: "名人,知名人士；名声,名望" },
-  { id: 110, part: "1", word: "ceremony", phonetic: "['serəməni]", meaning: "典礼,仪式；礼节,礼仪" },
-  { id: 111, part: "1", word: "certain", phonetic: "['sɜːtn]", meaning: "确定的,肯定的；某,某些；轻微的,一点,一些" },
-  { id: 112, part: "1", word: "certainty", phonetic: "['sɜːtnti]", meaning: "必然,确定,肯定；必然的事,确定的事" },
-  { id: 113, part: "1", word: "certificate", phonetic: "[sə'tɪfɪkət]", meaning: "证(明)书,执照" },
-  { id: 114, part: "1", word: "certify", phonetic: "['sɜːtɪfaɪ]", meaning: "证明,证实；发证书(或执照)" },
-  { id: 115, part: "1", word: "decline", phonetic: "[dɪ'klaɪn]", meaning: "①n. 下降,减少；衰退,衰落；倾斜 ②v. 拒绝,谢绝；下降,减少" },
-  { id: 116, part: "1", word: "decrease", phonetic: "[dɪ'kriːs]", meaning: "减少,减小" },
-  { id: 117, part: "1", word: "decree", phonetic: "[dɪ'kriː]", meaning: "①n. 法令；政令；裁定,判决 ②v. 颁布法令,下达政令；发出命令" },
-  { id: 118, part: "1", word: "deem", phonetic: "[diːm]", meaning: "认为；相信" },
-  { id: 119, part: "1", word: "dedicate", phonetic: "['dedɪkeɪt]", meaning: "(to)奉献；把……用在" },
-  { id: 120, part: "1", word: "deduce", phonetic: "[dɪ'djuːs]", meaning: "演绎,推论" },
-  { id: 121, part: "1", word: "deduct", phonetic: "[dɪ'dʌkt]", meaning: "(from)减去,扣除；(演绎地)推论" },
-  { id: 122, part: "1", word: "fashion", phonetic: "['fæʃn]", meaning: "方式,样子；流行式样,时尚,时装" },
-  { id: 123, part: "1", word: "fashionable", phonetic: "['fæʃnəbl]", meaning: "流行的,时兴的,时髦的；时髦人物使用的；(尤指)有钱人常光顾的" },
-  { id: 124, part: "1", word: "favor", phonetic: "['feɪvə(r)]", meaning: "①n. 恩惠,善意的行为；好感,喜爱,偏爱,特殊照顾 ②vt. 喜爱,偏爱,赞同；支持,拥护；有利于" },
-  { id: 125, part: "1", word: "favorable", phonetic: "['feɪvərəbl]", meaning: "赞许的,有利的" },
-  { id: 126, part: "1", word: "favorite", phonetic: "['feɪvərɪt]", meaning: "①adj. 最喜欢的,中意的 ②n. 最喜爱的人或物" },
-  { id: 127, part: "1", word: "sit", phonetic: "[sɪt]", meaning: "坐,就座；(for)参加考试；代人临时看小孩" },
-  { id: 128, part: "1", word: "site", phonetic: "[saɪt]", meaning: "①n. 位置,场所,地点；遗址；网站 ②vt. 使坐落在；设置" },
-  { id: 129, part: "1", word: "situate", phonetic: "['sɪtʃueɪt]", meaning: "使位于,使坐落于；(常用做比喻)将……置于,使联系" },
-  { id: 130, part: "1", word: "situation", phonetic: "[.sɪtʃu'eɪʃn]", meaning: "形势,状况；职位,职务,工作；位置,环境" },
-  { id: 131, part: "1", word: "skeleton", phonetic: "['skelɪtn]", meaning: "骨骼,骨架；框架；梗概,提要；(维持运作所需的)最少人员、最基本的服务等" },
-  { id: 132, part: "1", word: "skeptical/sceptical", phonetic: "['skeptɪkl]", meaning: "怀疑的,[口]无神论的" },
-  { id: 133, part: "1", word: "sketch", phonetic: "[sketʃ]", meaning: "①n. 素描,速写；草图,略图；概述,纲要 ②v. 画素描,画速写；概述,简述" },
+  
   { id: 134, part: "2", word: "mediate", phonetic: "['miːdieɪt]", meaning: "调停,调解,斡旋；为解决分歧找到(方法),促成(协议)；(常用被动态)影响……的发生,使……可能发生" },
   { id: 135, part: "2", word: "meditation", phonetic: "[.medɪ'teɪʃn]", meaning: "沉思,冥想；深思熟虑,苦思冥想" },
   { id: 136, part: "2", word: "medium", phonetic: "['miːdiəm]", meaning: "①n. (pl. media,mediums)中间,中庸；媒介(物),介质,媒体；传导体；手段,工具,方法 ②adj. 中等的,中号的" },
@@ -5129,22 +5177,91 @@
         const closeStatsModal = document.getElementById('closeStatsModal');
         const statsModalBody = document.getElementById('statsModalBody');
 
+        // 庆祝特效DOM
+        const celebrationOverlay = document.getElementById('celebrationOverlay');
+        const celebrationText = document.getElementById('celebrationText');
+        const closeCelebration = document.getElementById('closeCelebration');
+
         // 状态
         let knownWords = new Set();
         let todayWords = new Set();
         let todayClickCount = 0;
         const todayDate = new Date().toISOString().split('T')[0];
         let currentPart = "all";
+        // 新增：每20个计数与触发标记
+        let milestoneCount = 0; // 新增掌握计数（取消不扣）
+        let lastMilestone = 0; // 上一次触发的20倍数
 
         // 初始化
         function initPage() {
             loadLearningData();
             bindMenuEvents();
             bindStatsModalEvents();
+            bindCelebrationEvents();
             loadVocabByPart("all");
             updateStats();
         }
 
+        // ========== 每20个单词庆祝逻辑 ==========
+        function checkMilestone() {
+            // 只统计新增掌握的单词（取消不算）
+            const currentMilestone = Math.floor(knownWords.size / 20) * 20;
+            if (currentMilestone > lastMilestone && currentMilestone > 0) {
+                lastMilestone = currentMilestone;
+                showCelebration(currentMilestone);
+                saveMilestone(); // 保存进度，避免重复触发
+            }
+        }
+
+        // 显示庆祝特效
+        function showCelebration(count) {
+            celebrationText.textContent = `你已经掌握了 ${count} 个新单词，继续加油！`;
+            celebrationOverlay.classList.add('show');
+            createFireworks(); // 生成烟花/星星动画
+            // 震动反馈（手机）
+            if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+        }
+
+        // 关闭庆祝弹窗
+        function hideCelebration() {
+            celebrationOverlay.classList.remove('show');
+        }
+
+        // 绑定庆祝事件
+        function bindCelebrationEvents() {
+            closeCelebration.addEventListener('click', hideCelebration);
+            celebrationOverlay.addEventListener('click', (e) => {
+                if (e.target === celebrationOverlay) hideCelebration();
+            });
+        }
+
+        // 生成烟花/星星动画
+        function createFireworks() {
+            const fireworksContainer = document.body;
+            for (let i = 0; i < 30; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.left = Math.random() * 100 + '%';
+                firework.style.top = Math.random() * 50 + '%';
+                firework.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
+                fireworksContainer.appendChild(firework);
+                // 动画结束后移除
+                setTimeout(() => firework.remove(), 1500);
+            }
+        }
+
+        // 保存里程碑到本地存储
+        function saveMilestone() {
+            localStorage.setItem('vocabMilestone', lastMilestone);
+        }
+
+        // 加载里程碑
+        function loadMilestone() {
+            const saved = localStorage.getItem('vocabMilestone');
+            lastMilestone = saved ? parseInt(saved) : 0;
+        }
+
+        // ========== 原有功能保留 ==========
         // 绘制近7天学习趋势图
         function drawTrendChart(dayData) {
             const canvas = document.getElementById('trendChart');
@@ -5358,17 +5475,22 @@
             });
         }
 
-        // 切换单词状态
+        // 切换单词状态（核心：新增检查里程碑）
         function toggleWordStatus(id) {
             const tr = document.querySelector(`tr[data-word-id="${id}"]`);
-            if (knownWords.has(id)) {
+            const wasKnown = knownWords.has(id);
+            
+            if (wasKnown) {
                 knownWords.delete(id);
                 tr.className = 'unknown';
             } else {
                 knownWords.add(id);
                 tr.className = 'known';
                 todayWords.add(id);
+                // 新增掌握，触发计数检查
+                checkMilestone();
             }
+
             saveLearningData();
             updateStats();
 
@@ -5390,7 +5512,7 @@
             progressFillEl.style.width = pct + '%';
         }
 
-        // 本地存储
+        // 本地存储（新增保存里程碑）
         function saveLearningData() {
             localStorage.setItem('vocabData', JSON.stringify({
                 known: [...knownWords],
@@ -5399,6 +5521,7 @@
                 date: todayDate
             }));
             localStorage.setItem(`studyDay_${todayDate}`, todayWords.size);
+            saveMilestone();
         }
 
         function loadLearningData() {
@@ -5414,19 +5537,126 @@
                 todayWords = new Set();
                 todayClickCount = 0;
             }
+            loadMilestone(); // 加载里程碑
         }
 
         // 发音
         function playPronunciation(word) {
-            if ('speechSynthesis' in window) {
-                const u = new SpeechSynthesisUtterance(word);
-                u.lang = 'en-US';
-                u.rate = 0.9;
-                speechSynthesis.speak(u);
+           
+                        // 安卓APP打包后用这个发音
+            if (window.plus) {
+                plus.speech.speak(word, {
+                language: "en-US",
+                volume: 1
+                });
+                return;
             }
+
+            // 电脑浏览器用这个发音
+            let u = new SpeechSynthesisUtterance(word);
+            u.lang = "en-US";
+            u.volume = 1;
+            window.speechSynthesis.speak(u);
         }
+        
 
         document.addEventListener('DOMContentLoaded', initPage);
     </script>
+    <!-- 只在你原有页面上加这一段：分享画布 + 弹窗 -->
+<canvas id="shareCanvas" width="400" height="600" style="position:fixed;top:-9999px;left:-9999px;"></canvas>
+<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:99999;display:none;align-items:center;justify-content:center;" id="shareModal">
+  <div style="background:#fff;padding:20px;border-radius:16px;width:90%;max-width:350px;text-align:center;">
+    <img id="shareImg" style="width:100%;border-radius:12px;margin-bottom:12px;">
+    <div>
+      <button style="padding:10px 16px;background:#3b82f6;color:#fff;border:none;border-radius:8px;width:100%;" onclick="saveShareImage()">保存图片分享</button>
+      <button style="margin-top:8px;padding:8px;width:100%;border:none;background:#f1f5f9;border-radius:8px;" onclick="closeShare()">关闭</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ==============================
+// 以下是【只加分享】不改动你原有统计
+// ==============================
+const shareModal = document.getElementById('shareModal');
+const shareImg = document.getElementById('shareImg');
+const shareCanvas = document.getElementById('shareCanvas');
+const ctx = shareCanvas.getContext('2d');
+
+// 在这里换成你的分享背景图
+const SHARE_BG_IMAGE = 'huigong.png';
+
+// 打开分享
+function openShare() {
+  generateShareCard();
+  shareModal.style.display = 'flex';
+}
+// 关闭
+function closeShare() {
+  shareModal.style.display = 'none';
+}
+// 保存图片
+function saveShareImage() {
+  const a = document.createElement('a');
+  a.download = '学习打卡.png';
+  a.href = shareImg.src;
+  a.click();
+}
+
+// 生成卡片（不影响你原有统计）
+async function generateShareCard() {
+  const today = new Date();
+  const dateStr = today.getFullYear()+'年'+(today.getMonth()+1)+'月'+today.getDate()+'日';
+
+  // 你原有统计里的变量直接用，我不动它们
+  const totalCount = document.getElementById('total-count').innerText;
+  const knownCount = document.getElementById('known-count').innerText;
+  const todayCount = document.getElementById('today-count').innerText;
+
+  const bg = new Image();
+  bg.src = SHARE_BG_IMAGE;
+  await new Promise(r => bg.onload = r);
+
+  shareCanvas.width = 400;
+  shareCanvas.height = 600;
+  ctx.drawImage(bg, 0,0,400,600);
+
+  ctx.fillStyle = 'rgba(0,0,0,0.4)';
+  ctx.fillRect(0,0,400,600);
+
+  ctx.fillStyle = '#fff';
+  ctx.textAlign = 'center';
+  ctx.font = 'bold 26px sans-serif';
+  ctx.fillText('今日单词学习', 200, 100);
+  ctx.font = '18px sans-serif';
+  ctx.fillText(dateStr, 200, 140);
+
+  ctx.font = 'bold 60px sans-serif';
+  ctx.fillText(todayCount, 200, 260);
+  ctx.font = '20px sans-serif';
+  ctx.fillText('个单词', 200, 300);
+
+  ctx.font = '22px sans-serif';
+  ctx.fillText(`累计掌握：${knownCount}/${totalCount}`, 200, 380);
+  ctx.fillText('没想到还挺让人刮目相看的啊...你', 200, 500);
+
+  ctx.font = '10px sans-serif';
+  ctx.fillText('WordsCard Ver 0.1 by 浅川 爱ぃ', 200, 585);
+  shareImg.src = shareCanvas.toDataURL('image/png');
+}
+
+// 在你原来的顶部按钮上加一个分享按钮
+const nav = document.querySelector('.top-nav');
+const shareBtn = document.createElement('button');
+shareBtn.innerText = '📤 分享';
+shareBtn.style.padding = '6px 12px';
+shareBtn.style.borderRadius = '8px';
+shareBtn.style.border = 'none';
+shareBtn.style.background = '#fef3c7';
+shareBtn.style.color = '#d97706';
+shareBtn.style.marginRight = '8px';
+shareBtn.onclick = openShare;
+nav.insertBefore(shareBtn, nav.children[1]);
+</script>
 </body>
 </html>
